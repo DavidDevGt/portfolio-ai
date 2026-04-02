@@ -1,0 +1,18 @@
+{
+  "name": "David Vargas - Ingeniero de Software",
+  "short_name": "davidwebgt",
+  "description": "Portfolio de David Vargas, Ingeniero de Software especializado en desarrollo móvil y soluciones cloud",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080810",
+  "theme_color": "#00e5cc",
+  "orientation": "portrait-primary",
+  "lang": "es-GT",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "skills": {
+    "about-me": {
+      "source": "whawkinsiv/solo-founder-superpowers",
+      "sourceType": "github",
+      "computedHash": "48a9a345c3f7daad857314fe919fbddfbeed4cf454b28316fa85e6fec83510f8"
+    },
+    "ai-features": {
+      "source": "whawkinsiv/solo-founder-superpowers",
+      "sourceType": "github",
+      "computedHash": "15911fce266db7987cc33f7174f75f88143552be85b2f7d30c3e8ee74ef8cf9a"
+    },
+    "analytics": {
+      "source": "whawkinsiv/solo-founder-superpowers",
+      "sourceType": "github",
+      "computedHash": "7e1ed2675902755663e1c8c3d48a76ceda36dbd2478183dfc0b280e4ab499db1"
+    },
+    "beautify": {
+      "source": "whawkinsiv/solo-founder-superpowers",
+      "sourceType": "github",
+      "computedHash": "a0fb962f54762e69aacc9d059d44157c7ecf7e46139f037129163ff7e56a0494"
+    },
+    "build": {
+      "source": "whawkinsiv/solo-founder-superpowers",
+      "sourceType": "github",
+      "computedHash": "3a2c3b28fa791343f679ffee177024fbcfcdbd6961f4f638796dc1e44c02eeb4"
+    },
+    "copywriting": {
+      "source": "whawkinsiv/solo-founder-superpowers",
+      "sourceType": "github",
+      "computedHash": "91da9f7e42e40efd6588d88fe7da9fb2f6fa03e7700e64fc2a48addeef271fdd"
+    },
+    "database": {
+      "source": "whawkinsiv/solo-founder-superpowers",
+      "sourceType": "github",
+      "computedHash": "2249303a8882e75a8daa064ceb65bf407dd4d0855472b81a20a05390f8e58674"
+    },
+    "debug": {
+      "source": "whawkinsiv/solo-founder-superpowers",
+      "sourceType": "github",
+      "computedHash": "5d729b7c6d07be98e369426ba50884fa20966fd403e7240f18b0d4bc086c59d3"
+    },
+    "deploy": {
+      "source": "whawkinsiv/solo-founder-superpowers",
+      "sourceType": "github",
+      "computedHash": "c724e3c0ffc7933bca626a0a506714ef55583883362787606f6d724683d3bdbf"
+    },
+    "focus": {
+      "source": "whawkinsiv/solo-founder-superpowers",
+      "sourceType": "github",
+      "computedHash": "1593720effbfde747534732e3c45036a788bb09e8a99988371cd95aaf731c6c3"
+    },
+    "growth": {
+      "source": "whawkinsiv/solo-founder-superpowers",
+      "sourceType": "github",
+      "computedHash": "b8fbe6e1f652002b37fd07b784df4ca31c5aa1450428ba1cfa402676f26c7706"
+    },
+    "integrations": {
+      "source": "whawkinsiv/solo-founder-superpowers",
+      "sourceType": "github",
+      "computedHash": "0b37886e8fc607c4b7c239fe34088e8deeee47eec018d15c845cefd8f1691188"
+    },
+    "landing-page": {
+      "source": "whawkinsiv/solo-founder-superpowers",
+      "sourceType": "github",
+      "computedHash": "c39be5ab9b0e1fc0cfa0fffc39f34af027a432a061a92dd52d4aacdaff9efc2b"
+    },
+    "market-research": {
+      "source": "whawkinsiv/solo-founder-superpowers",
+      "sourceType": "github",
+      "computedHash": "34e59193d7dc651b12e86e266a0c967e8e7540dcddcdf0f443a8b19ce8739e20"
+    },
+    "plan": {
+      "source": "whawkinsiv/solo-founder-superpowers",
+      "sourceType": "github",
+      "computedHash": "55537e69e876abdb70ba96eca9b2e402315fe0cc8ff20f0ecb603bd4ac442d25"
+    },
+    "seo": {
+      "source": "whawkinsiv/solo-founder-superpowers",
+      "sourceType": "github",
+      "computedHash": "69e5253874d0bba0c45225fd0b343567a73d176b475d3c04f7b6e7b4061988c8"
+    },
+    "seo-audit": {
+      "source": "whawkinsiv/solo-founder-superpowers",
+      "sourceType": "github",
+      "computedHash": "4aa5204304fe6460957d0dc9d923f5af5f613c1054fbc4194339c413a3ede25b"
+    },
+    "seo-content": {
+      "source": "whawkinsiv/solo-founder-superpowers",
+      "sourceType": "github",
+      "computedHash": "f073d06acc8c977e878af6870d9d639f9427798e851f72a47c94d7863409d238"
+    },
+    "ui-patterns": {
+      "source": "whawkinsiv/solo-founder-superpowers",
+      "sourceType": "github",
+      "computedHash": "c2c342b30114a6f610989d86f2cb59223d19aa7a4440f247b81270d09e58bebd"
+    },
+    "ux-design": {
+      "source": "whawkinsiv/solo-founder-superpowers",
+      "sourceType": "github",
+      "computedHash": "111c2685b35113506ecf2a5ae7761c71865b3278dbd6c5fe6625940bb6807c3b"
+    }
+  }
+}

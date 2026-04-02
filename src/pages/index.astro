@@ -1,17 +1,860 @@
 ---
+import Layout from '../layouts/Layout.astro';
 
+const projects = [
+  {
+    title: 'Kurai-Transcribe',
+    desc: 'Self-hosted transcription API with NLP pipeline. Custom vocabulary injection, NER with SpaCy, automatic punctuation restoration. Semaphore-based VRAM management prevents OOM. VAD filtering + Pyannote diarization. Real-time GPU monitoring exported to Prometheus.',
+    stack: ['Faster-Whisper', 'FastAPI', 'SpaCy', 'CTranslate2'],
+    year: '2026',
+    link: 'https://transcribe.kuraitachi.com/',
+    metrics: 'RTFx < 0.3'
+  },
+  {
+    title: 'KuraiMusik',
+    desc: 'Autonomous AI radio broadcasting 24/7 with zero human intervention. Dynamic buffer system with ACE-Step 1.5 engine. Circuit breaker pattern for resilience. Professional DSP with Liquidsoap: AGC, crossfades, real-time ID3 metadata.',
+    stack: ['FastAPI', 'Celery', 'Liquidsoap', 'Redis'],
+    year: '2026',
+    link: 'https://music.kuraitachi.com/',
+    metrics: '100% uptime'
+  },
+  {
+    title: 'AI Infrastructure Orchestration',
+    desc: 'Production-grade distributed systems for AI workloads. Model serving with dynamic resource allocation, automatic scaling, and fault tolerance. Built for reliability over coolness.',
+    stack: ['Kubernetes', 'Prometheus', 'Go', 'Python'],
+    year: '2025',
+    metrics: 'Zero downtime'
+  },
+  {
+    title: 'Self-Hosted ML Pipeline',
+    desc: 'Complete MLOps stack running on homelab GPU infrastructure. Model training, versioning, deployment, and monitoring. Built to prove that cloud APIs are a scaling trap.',
+    stack: ['MLflow', 'Docker', 'CUDA', 'PostgreSQL'],
+    year: '2025',
+    metrics: '$0 API costs'
+  }
+];
+
+const skills = {
+  'AI/ML': ['Faster-Whisper', 'SpaCy', 'CTranslate2', 'Transformers', 'MLflow'],
+  'Systems': ['Python', 'FastAPI', 'Celery', 'Go', 'C++'],
+  'Infrastructure': ['Kubernetes', 'Docker', 'Redis', 'PostgreSQL', 'Prometheus'],
+  'Audio/Streaming': ['Liquidsoap', 'Icecast', 'FFmpeg', 'DSP']
+};
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout 
+  title="David Vargas — AI Systems Engineer | ML Infrastructure & Real-time AI"
+  description="AI Systems Engineer specializing in production ML infrastructure, model optimization, and real-time AI systems. Building scalable AI pipelines that actually ship."
+>
+  <!-- Three.js Background -->
+  <canvas id="webgl-canvas"></canvas>
+
+  <!-- Navigation -->
+  <nav class="nav-brutal">
+    <div class="nav-inner">
+      <div class="logo-brutal">&lt;DV/&gt;</div>
+      <div class="nav-links">
+        <a href="#work" class="nav-link">WORK</a>
+        <a href="#stack" class="nav-link">STACK</a>
+        <a href="#contact" class="nav-link">CONTACT</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-brutal">
+    <div class="hero-content">
+      <div class="hero-label">
+        <span class="bracket">[</span>AI SYSTEMS ENGINEER<span class="bracket">]</span>
+      </div>
+      <h1 class="hero-title">
+        BUILDING<br/>
+        AI SYSTEMS<br/>
+        THAT SHIP
+      </h1>
+      <div class="hero-subtitle">
+        Production ML infrastructure · Model optimization · Real-time AI
+      </div>
+      <div class="hero-cta">
+        <a href="#work" class="btn-brutal btn-primary">SEE WORK</a>
+        <a href="https://github.com/DavidDevGt" target="_blank" rel="noopener" class="btn-brutal">GITHUB →</a>
+      </div>
+    </div>
+    <div class="hero-side">
+      <div class="stats-brutal">
+        <div class="stat">
+          <div class="stat-value">24/7</div>
+          <div class="stat-label">AUTONOMOUS AI</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">$0</div>
+          <div class="stat-label">API COSTS</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">100%</div>
+          <div class="stat-label">SELF-HOSTED</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section-brutal about-section">
+    <div class="section-header">
+      <span class="section-number">[01]</span>
+      <h2 class="section-title">WHO</h2>
+    </div>
+    <div class="about-content">
+      <p class="about-text">
+        Most people talk about AI models. I talk about AI Infrastructure.
+        Commercial AI APIs are a scaling trap—I build self-hosted systems that prove it.
+      </p>
+      <p class="about-text">
+        Running Kurai-Transcribe and KuraiMusik 24/7 on homelab GPUs. Zero API costs, full data sovereignty, complete control.
+        From NLP pipelines with custom vocabularies to autonomous radio broadcasting, I orchestrate AI systems that stay alive in production.
+      </p>
+      <div class="about-highlights">
+        <div class="highlight">
+          <div class="highlight-icon">▲</div>
+          <div class="highlight-text">Self-hosted Faster-Whisper with NER and diarization</div>
+        </div>
+        <div class="highlight">
+          <div class="highlight-icon">▲</div>
+          <div class="highlight-text">Autonomous AI radio with circuit breaker patterns</div>
+        </div>
+        <div class="highlight">
+          <div class="highlight-icon">▲</div>
+          <div class="highlight-text">GPU resource management that prevents OOM at scale</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="section-brutal" id="work">
+    <div class="section-header">
+      <span class="section-number">[02]</span>
+      <h2 class="section-title">WORK</h2>
+    </div>
+    <div class="projects-brutal">
+      {projects.map((project, idx) => (
+        <article class="project-brutal">
+          <div class="project-number">[{String(idx + 1).padStart(2, '0')}]</div>
+          <div class="project-main">
+            <div class="project-header">
+              <h3 class="project-title">{project.title}</h3>
+              <span class="project-year">{project.year}</span>
+            </div>
+            <p class="project-desc">{project.desc}</p>
+            <div class="project-stack">
+              {project.stack.map(tech => (
+                <span class="tech-tag">{tech}</span>
+              ))}
+            </div>
+            {project.link && (
+              <div class="project-footer">
+                <a href={project.link} target="_blank" rel="noopener noreferrer" class="project-link">
+                  VIEW LIVE →
+                </a>
+                <span class="project-metric">{project.metrics}</span>
+              </div>
+            )}
+            {!project.link && project.metrics && (
+              <div class="project-footer">
+                <span class="project-metric">{project.metrics}</span>
+              </div>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Stack Section -->
+  <section class="section-brutal" id="stack">
+    <div class="section-header">
+      <span class="section-number">[03]</span>
+      <h2 class="section-title">STACK</h2>
+    </div>
+    <div class="stack-grid">
+      {Object.entries(skills).map(([category, techs]) => (
+        <div class="stack-category">
+          <h3 class="stack-category-title">{category}</h3>
+          <ul class="stack-list">
+            {techs.map(tech => (
+              <li class="stack-item">
+                <span class="stack-bullet">▸</span>
+                {tech}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section-brutal contact-section" id="contact">
+    <div class="section-header">
+      <span class="section-number">[04]</span>
+      <h2 class="section-title">CONTACT</h2>
+    </div>
+    <div class="contact-content">
+      <div class="contact-text">
+        <p>Currently open to interesting AI infrastructure challenges.</p>
+        <p>If you're building something that needs to scale, let's talk.</p>
+      </div>
+      <div class="contact-links">
+        <a href="https://github.com/DavidDevGt" target="_blank" rel="noopener" class="contact-link">
+          <span class="link-label">GITHUB</span>
+          <span class="link-arrow">→</span>
+        </a>
+        <a href="https://www.linkedin.com/in/jdavidvl/" target="_blank" rel="noopener" class="contact-link">
+          <span class="link-label">LINKEDIN</span>
+          <span class="link-arrow">→</span>
+        </a>
+        <a href="mailto:contact@davidwebgt.com" class="contact-link">
+          <span class="link-label">EMAIL</span>
+          <span class="link-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer-brutal">
+    <div class="footer-content">
+      <div class="footer-left">
+        <span class="bracket">[</span>2026<span class="bracket">]</span> DAVID VARGAS
+      </div>
+      <div class="footer-right">
+        AI SYSTEMS ENGINEER
+      </div>
+    </div>
+  </footer>
+</Layout>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import * as THREE from 'three';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Three.js Background
+  const canvas = document.getElementById('webgl-canvas') as HTMLCanvasElement;
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+  
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  camera.position.z = 5;
+
+  // Create wireframe geometry
+  const geometry = new THREE.IcosahedronGeometry(2, 1);
+  const material = new THREE.MeshBasicMaterial({ 
+    color: 0x00ff00, 
+    wireframe: true,
+    transparent: true,
+    opacity: 0.3
+  });
+  const mesh = new THREE.Mesh(geometry, material);
+  scene.add(mesh);
+
+  // Animation loop
+  function animate() {
+    requestAnimationFrame(animate);
+    mesh.rotation.x += 0.001;
+    mesh.rotation.y += 0.002;
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // Resize handler
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  // GSAP Animations
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion) {
+    // Hero animation
+    gsap.from('.hero-label', { opacity: 0, y: 20, duration: 0.6, delay: 0.2 });
+    gsap.from('.hero-title', { opacity: 0, y: 40, duration: 0.8, delay: 0.4 });
+    gsap.from('.hero-subtitle', { opacity: 0, y: 20, duration: 0.6, delay: 0.8 });
+    gsap.from('.hero-cta', { opacity: 0, y: 20, duration: 0.6, delay: 1 });
+    gsap.from('.stat', { 
+      opacity: 0, 
+      scale: 0.8,
+      duration: 0.6, 
+      stagger: 0.1,
+      delay: 1.2 
+    });
+
+    // Projects animation
+    gsap.utils.toArray('.project-brutal').forEach((project: any, i) => {
+      gsap.from(project, {
+        scrollTrigger: {
+          trigger: project,
+          start: 'top 80%',
+        },
+        opacity: 0,
+        x: -50,
+        duration: 0.6,
+        delay: i * 0.1
+      });
+    });
+
+    // Stack animation
+    gsap.utils.toArray('.stack-category').forEach((category: any, i) => {
+      gsap.from(category, {
+        scrollTrigger: {
+          trigger: category,
+          start: 'top 80%',
+        },
+        opacity: 0,
+        y: 30,
+        duration: 0.5,
+        delay: i * 0.1
+      });
+    });
+  }
+
+  // Scroll-based mesh rotation
+  window.addEventListener('scroll', () => {
+    const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+    mesh.rotation.z = scrollPercent * Math.PI * 2;
+  });
+</script>
+
+<style>
+  #webgl-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  /* Navigation */
+  .nav-brutal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: var(--color-bg);
+    border-bottom: var(--border-thick) solid var(--color-accent);
+  }
+
+  .nav-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--space-sm) var(--space-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo-brutal {
+    font-family: var(--font-body);
+    font-size: var(--text-xl);
+    font-weight: 900;
+    color: var(--color-accent);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: var(--space-md);
+  }
+
+  .nav-link {
+    font-family: var(--font-header);
+    font-size: var(--text-sm);
+    font-weight: 900;
+    color: var(--color-text);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: var(--border-medium) solid transparent;
+    transition: all 0.15s ease;
+  }
+
+  .nav-link:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  /* Hero */
+  .hero-brutal {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: var(--space-xl) var(--space-md);
+    gap: var(--space-xl);
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .hero-content {
+    flex: 1;
+  }
+
+  .hero-label {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-bottom: var(--space-sm);
+  }
+
+  .bracket {
+    color: var(--color-accent-2);
+    font-weight: 900;
+  }
+
+  .hero-title {
+    font-size: clamp(3rem, 10vw, var(--text-5xl));
+    line-height: 0.85;
+    margin-bottom: var(--space-md);
+    color: var(--color-text);
+    text-shadow: 4px 4px 0 var(--color-accent);
+  }
+
+  .hero-subtitle {
+    font-family: var(--font-body);
+    font-size: var(--text-md);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-lg);
+    max-width: 600px;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .btn-brutal {
+    font-family: var(--font-header);
+    font-size: var(--text-sm);
+    font-weight: 900;
+    padding: 1rem 2rem;
+    border: var(--border-thick) solid var(--color-text);
+    background: transparent;
+    color: var(--color-text);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    text-transform: uppercase;
+    display: inline-block;
+  }
+
+  .btn-brutal:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 4px 4px 0 var(--color-accent);
+  }
+
+  .btn-brutal:active {
+    transform: translate(0, 0);
+    box-shadow: none;
+  }
+
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--color-bg);
+    border-color: var(--color-accent);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 4px 4px 0 var(--color-text);
+  }
+
+  .hero-side {
+    flex: 0 0 300px;
+  }
+
+  .stats-brutal {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .stat {
+    border: var(--border-thick) solid var(--color-text);
+    padding: var(--space-sm);
+    background: var(--color-bg);
+  }
+
+  .stat-value {
+    font-family: var(--font-header);
+    font-size: var(--text-3xl);
+    font-weight: 900;
+    color: var(--color-accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    margin-top: 0.5rem;
+  }
+
+  /* Sections */
+  .section-brutal {
+    padding: var(--space-2xl) var(--space-md);
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xl);
+    border-bottom: var(--border-thick) solid var(--color-accent);
+    padding-bottom: var(--space-sm);
+  }
+
+  .section-number {
+    font-family: var(--font-body);
+    font-size: var(--text-md);
+    color: var(--color-accent-2);
+    font-weight: 900;
+  }
+
+  .section-title {
+    font-size: clamp(2.5rem, 6vw, var(--text-4xl));
+    margin: 0;
+  }
+
+  /* About */
+  .about-content {
+    max-width: 900px;
+  }
+
+  .about-text {
+    font-size: var(--text-lg);
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+    color: var(--color-text);
+  }
+
+  .about-highlights {
+    margin-top: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .highlight {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm);
+    border-left: var(--border-thick) solid var(--color-accent);
+  }
+
+  .highlight-icon {
+    font-size: var(--text-xl);
+    color: var(--color-accent);
+  }
+
+  .highlight-text {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+  }
+
+  /* Projects */
+  .projects-brutal {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .project-brutal {
+    display: flex;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    border: var(--border-thick) solid var(--color-text);
+    background: var(--color-bg-alt);
+    transition: all 0.2s ease;
+  }
+
+  .project-brutal:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 4px 4px 0 var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  .project-number {
+    font-family: var(--font-body);
+    font-size: var(--text-2xl);
+    font-weight: 900;
+    color: var(--color-accent-2);
+    flex-shrink: 0;
+  }
+
+  .project-main {
+    flex: 1;
+  }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: var(--space-sm);
+  }
+
+  .project-title {
+    font-size: var(--text-xl);
+    margin: 0;
+  }
+
+  .project-year {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  .project-desc {
+    font-size: var(--text-base);
+    line-height: 1.5;
+    margin-bottom: var(--space-sm);
+    color: var(--color-text-muted);
+  }
+
+  .project-stack {
+    display: flex;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
+  }
+
+  .tech-tag {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    padding: 0.25rem 0.75rem;
+    border: var(--border-thin) solid var(--color-text);
+    color: var(--color-text);
+    font-weight: 700;
+  }
+
+  .project-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-md);
+    padding-top: var(--space-sm);
+    border-top: var(--border-thin) solid var(--color-text);
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .project-link {
+    font-family: var(--font-header);
+    font-size: var(--text-sm);
+    font-weight: 900;
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .project-link:hover {
+    color: var(--color-accent-3);
+    transform: translateX(4px);
+  }
+
+  .project-metric {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-accent);
+    padding: 0.25rem 0.75rem;
+    border: var(--border-thin) solid var(--color-accent);
+    background: rgba(0, 255, 0, 0.05);
+  }
+
+  /* Stack */
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-md);
+  }
+
+  .stack-category {
+    border: var(--border-thick) solid var(--color-text);
+    padding: var(--space-md);
+    background: var(--color-bg-alt);
+  }
+
+  .stack-category-title {
+    font-size: var(--text-lg);
+    margin: 0 0 var(--space-sm) 0;
+    color: var(--color-accent);
+  }
+
+  .stack-list {
+    list-style: none;
+  }
+
+  .stack-item {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    padding: 0.5rem 0;
+    border-bottom: var(--border-thin) solid var(--color-text);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .stack-item:last-child {
+    border-bottom: none;
+  }
+
+  .stack-bullet {
+    color: var(--color-accent);
+    font-weight: 900;
+  }
+
+  /* Contact */
+  .contact-section {
+    min-height: 50vh;
+  }
+
+  .contact-content {
+    max-width: 800px;
+  }
+
+  .contact-text {
+    margin-bottom: var(--space-lg);
+  }
+
+  .contact-text p {
+    font-size: var(--text-lg);
+    line-height: 1.6;
+    margin-bottom: var(--space-sm);
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .contact-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md);
+    border: var(--border-thick) solid var(--color-text);
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+
+  .contact-link:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 4px 4px 0 var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  .link-label {
+    font-family: var(--font-header);
+    font-size: var(--text-xl);
+    font-weight: 900;
+    color: var(--color-text);
+  }
+
+  .link-arrow {
+    font-size: var(--text-2xl);
+    color: var(--color-accent);
+    font-weight: 900;
+  }
+
+  /* Footer */
+  .footer-brutal {
+    border-top: var(--border-thick) solid var(--color-accent);
+    padding: var(--space-md);
+    margin-top: var(--space-2xl);
+  }
+
+  .footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 700;
+  }
+
+  /* Responsive */
+  @media (max-width: 968px) {
+    .hero-brutal {
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .hero-side {
+      flex: auto;
+      width: 100%;
+    }
+
+    .stats-brutal {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .stat {
+      flex: 1;
+    }
+
+    .nav-links {
+      gap: var(--space-sm);
+    }
+
+    .nav-link {
+      padding: 0.5rem;
+      font-size: 0.75rem;
+    }
+
+    .project-brutal {
+      flex-direction: column;
+    }
+
+    .footer-content {
+      flex-direction: column;
+      gap: var(--space-sm);
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero-title {
+      font-size: 2.5rem;
+      text-shadow: 2px 2px 0 var(--color-accent);
+    }
+
+    .stats-brutal {
+      flex-direction: column;
+    }
+
+    .stat-value {
+      font-size: var(--text-2xl);
+    }
+
+    .btn-brutal {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

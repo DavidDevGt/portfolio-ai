@@ -1,0 +1,93 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Button from '../components/Button.astro';
+---
+
+<Layout title="404 — Page Not Found">
+  <Header />
+  
+  <main class="not-found-page">
+    <div class="content">
+      <span class="error-code">
+        <span class="bracket">[</span>
+        <span class="code">404</span>
+        <span class="bracket">]</span>
+      </span>
+      <h1 class="title">Page Not Found</h1>
+      <p class="description">
+        The page you're looking for doesn't exist or has been moved. 
+        Maybe it's in another dimension? ¯\_(ツ)_/¯
+      </p>
+      <div class="cta">
+        <Button href="/" variant="primary">
+          Go Home
+        </Button>
+        <Button href="/projects" variant="ghost">
+          View Projects
+        </Button>
+      </div>
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<style>
+  .not-found-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 2rem 4rem;
+    text-align: center;
+  }
+
+  .content {
+    max-width: 500px;
+  }
+
+  .error-code {
+    font-family: var(--font-body);
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25em;
+    margin-bottom: 1.5rem;
+  }
+
+  .bracket {
+    color: var(--color-purple);
+  }
+
+  .code {
+    color: var(--color-cyan);
+  }
+
+  .title {
+    font-family: var(--font-header);
+    font-size: clamp(2rem, 6vw, 3rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.04em;
+    margin-bottom: 1rem;
+  }
+
+  .description {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+</style>
