@@ -9,11 +9,11 @@
 
 ## 🎯 Overview
 
-Production-ready portfolio for **David Vargas**, AI Systems Engineer. Features a **brutalist design** with Three.js 3D background, GSAP animations, and a tech-savvy aesthetic.
+Professional portfolio for **David Vargas**, Software Engineer with 3+ years of experience in fintech, ERP systems, and AI development. Designed to showcase technical expertise and attract software development opportunities. Features a **brutalist design** with Three.js 3D background, GSAP animations, and comprehensive project demonstrations.
 
 ### Key Features
 
-- ✨ **Single-page landing** - All content on one optimized page
+- ✨ **Single-page landing** - Clean, focused landing page only
 - 🎨 **Brutalist design** - Bold typography, high contrast, thick borders
 - 🌐 **Three.js background** - Interactive 3D wireframe geometry
 - ⚡ **GSAP animations** - Smooth scroll-triggered effects
@@ -45,12 +45,10 @@ Visit `http://localhost:4321` to see the site.
 portfolio-ai/
 ├── src/
 │   ├── pages/
-│   │   ├── index.astro          # Main landing page (brutalist design)
-│   │   ├── about.astro           # Redirects to /
-│   │   ├── projects.astro        # Redirects to /#work
-│   │   └── lab.astro             # Redirects to GitHub
+│   │   ├── index.astro           # Comprehensive landing page
+│   │   └── 404.astro             # Custom 404 error page
 │   ├── layouts/
-│   │   └── Layout.astro          # Base layout with SEO
+│   │   └── Layout.astro          # Base layout with SEO & analytics
 │   ├── components/
 │   │   ├── Header.astro
 │   │   ├── Footer.astro
@@ -60,7 +58,7 @@ portfolio-ai/
 ├── public/
 │   ├── robots.txt
 │   ├── manifest.json
-│   └── favicon.svg
+│   └── og-image.svg               # Social sharing image
 └── package.json
 ```
 
@@ -105,10 +103,9 @@ portfolio-ai/
 
 ## 📊 Featured Projects
 
-1. **Neural Network Optimizer** - 73% speedup
-2. **Distributed LLM Gateway** - 50M+ req/day
-3. **Real-time CV System** - 60fps edge deployment
-4. **AI Model Observatory** - MLOps platform
+1. **Kurai-Transcribe** - Self-hosted transcription API with custom vocabularies
+2. **KuraiMusik** - 24/7 autonomous AI radio station
+3. **KurAI2Video** - Self-hosted video generation system
 
 ## 🔗 Social Links
 
@@ -117,11 +114,13 @@ portfolio-ai/
 
 ## 📝 Content Sections
 
-1. **Hero** - Name, role, key metrics
-2. **About** - AI infrastructure expertise
-3. **Work** - Featured projects
-4. **Stack** - Technical skills
-5. **Contact** - Get in touch
+1. **Hero** - Name, role, key metrics (8+ systems, 50M+ req/day, 99.95% uptime)
+2. **About** - AI infrastructure philosophy & achievements
+3. **Experience** - Professional background & key achievements
+4. **Work** - 8 featured projects with detailed descriptions
+5. **Stack** - 6 technical skill categories (20+ technologies)
+6. **Expertise** - 4 specialized areas (GPU optimization, self-hosted AI, MLOps, real-time systems)
+7. **Contact** - Professional contact information & call-to-action
 
 ## 🌐 Deployment
 
@@ -136,11 +135,14 @@ Build output is in `dist/` directory. Deploy to:
 
 No environment variables needed for basic deployment.
 
-## 🎯 SEO
+## 🎯 SEO & Performance
 
-- Title: "David Vargas — AI Systems Engineer | ML Infrastructure & Real-time AI"
-- Description: Production ML infrastructure specialist
-- Keywords: AI Systems Engineer, Machine Learning, PyTorch, TensorFlow
+- **Title**: "David Vargas — Software Engineer | Fintech, ERP & AI Development"
+- **Description**: Software Engineer from Guatemala with experience in fintech, ERP systems, and AI development. Building robust software solutions for modern business challenges
+- **Keywords**: Software Engineer, Fintech, ERP, AI Development, React, Python, PostgreSQL, Full Stack
+- **Schema Markup**: Person + FAQPage + WebSite structured data
+- **Analytics**: Plausible (privacy-focused)
+- **Social**: OG image with brutalist design
 - Schema: Person markup with AI/ML expertise
 
 ## 📱 Responsive Design
@@ -191,6 +193,17 @@ For detailed design decisions and implementation notes, see:
 
 ---
 
-**Built by**: David Vargas  
-**Domain**: davidwebgt.com  
-**Last Updated**: 2026-04-02
+**Built by**: David Vargas
+**Domain**: davidwebgt.com
+**Last Updated**: 2026-04-03
+
+**Profile**: Software Engineer (2023-present)
+**Experience**: Fintech, ERP, AI Development
+**Projects**: 3 core systems + multiple implementations
+**Tech Stack**: Full-stack development, modern frameworks
+
+**Sections**: 7 comprehensive sections
+**Projects**: 8 detailed project showcases
+**Skills**: 20+ technologies across 6 categories
+**Experience**: 3 professional roles with achievements
+**Expertise**: 4 specialized technical areas

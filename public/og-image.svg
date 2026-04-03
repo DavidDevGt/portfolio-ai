@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap');
+      .bg { fill: #000; }
+      .accent { fill: #00ff00; }
+      .accent2 { fill: #ff00ff; }
+      .text { fill: #fff; font-family: 'Space Grotesk', Arial, sans-serif; font-weight: 700; }
+      .mono { fill: #b3b3b3; font-family: 'JetBrains Mono', monospace; font-size: 28px; }
+      .title { font-size: 72px; letter-spacing: -2px; }
+      .subtitle { font-size: 36px; fill: #b3b3b3; }
+      .tag { font-size: 22px; }
+    </style>
+  </defs>
+  
+  <!-- Background -->
+  <rect class="bg" width="1200" height="630"/>
+  
+  <!-- Border -->
+  <rect x="20" y="20" width="1160" height="590" fill="none" stroke="#00ff00" stroke-width="8"/>
+  
+  <!-- Corner accents -->
+  <rect x="40" y="40" width="60" height="8" fill="#ff00ff"/>
+  <rect x="40" y="40" width="8" height="60" fill="#ff00ff"/>
+  
+  <!-- Top label -->
+  <text x="80" y="120" class="mono" fill="#ff00ff">[AI SYSTEMS ENGINEER]</text>
+  
+  <!-- Main title -->
+  <text x="80" y="230" class="text title">DAVID VARGAS</text>
+  
+  <!-- Subtitle -->
+  <text x="80" y="310" class="text subtitle">Building AI Systems That Ship</text>
+  
+  <!-- Divider -->
+  <rect x="80" y="350" width="200" height="4" fill="#00ff00"/>
+  
+  <!-- Tech tags -->
+  <rect x="80" y="400" width="180" height="40" rx="4" fill="none" stroke="#fff" stroke-width="2"/>
+  <text x="100" y="427" class="text tag" font-size="20">Faster-Whisper</text>
+  
+  <rect x="280" y="400" width="130" height="40" rx="4" fill="none" stroke="#fff" stroke-width="2"/>
+  <text x="300" y="427" class="text tag" font-size="20">Kubernetes</text>
+  
+  <rect x="430" y="400" width="100" height="40" rx="4" fill="none" stroke="#fff" stroke-width="2"/>
+  <text x="450" y="427" class="text tag" font-size="20">FastAPI</text>
+  
+  <rect x="550" y="400" width="120" height="40" rx="4" fill="none" stroke="#fff" stroke-width="2"/>
+  <text x="570" y="427" class="text tag" font-size="20">Liquidsoap</text>
+  
+  <!-- Stats -->
+  <text x="80" y="520" class="mono" font-size="24" fill="#00ff00">24/7 AI · $0 API Costs · 100% Self-Hosted</text>
+  
+  <!-- URL -->
+  <text x="80" y="580" class="mono" font-size="24" fill="#00ffff">davidwebgt.com</text>
+  
+  <!-- Right side decoration -->
+  <circle cx="1050" cy="150" r="80" fill="none" stroke="#00ff00" stroke-width="2" opacity="0.3"/>
+  <circle cx="1050" cy="150" r="60" fill="none" stroke="#ff00ff" stroke-width="2" opacity="0.2"/>
+  <circle cx="1050" cy="150" r="40" fill="none" stroke="#00ffff" stroke-width="2" opacity="0.15"/>
+</svg>

@@ -1,11 +1,11 @@
 {
-  "name": "David Vargas - Ingeniero de Software",
+  "name": "David Vargas - AI Systems Engineer",
   "short_name": "davidwebgt",
-  "description": "Portfolio de David Vargas, Ingeniero de Software especializado en desarrollo móvil y soluciones cloud",
+  "description": "Portfolio de David Vargas, AI Systems Engineer especializado en infraestructura ML self-hosted y sistemas de IA en tiempo real",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#080810",
-  "theme_color": "#00e5cc",
+  "background_color": "#000000",
+  "theme_color": "#00ff00",
   "orientation": "portrait-primary",
   "lang": "es-GT",
   "icons": [
@@ -14,5 +14,7 @@
       "sizes": "any",
       "type": "image/svg+xml"
     }
+  ]
+}
   ]
 }

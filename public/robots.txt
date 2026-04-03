@@ -1,16 +1,5 @@
-# robots.txt para davidwebgt.com
+# robots.txt for davidwebgt.com
 User-agent: *
 Allow: /
 
-# Sitemap
 Sitemap: https://davidwebgt.com/sitemap-index.xml
-
-# Optimización para bots de búsqueda
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-# Crawl-delay para evitar sobrecarga
-Crawl-delay: 1

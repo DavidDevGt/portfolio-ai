@@ -6,15 +6,15 @@ interface Props {
   description?: string;
 }
 
-const { 
-  title = "David Vargas — AI Systems Engineer | ML Infrastructure & Real-time AI", 
-  description = "AI Systems Engineer specializing in production ML infrastructure, model optimization, and real-time AI systems. Building scalable AI pipelines with PyTorch, TensorFlow, Go, and Kubernetes.",
+const {
+  title = "David Vargas — AI Systems Engineer | Self-Hosted AI & GPU Optimization",
+  description = "AI Systems Engineer from Guatemala specializing in self-hosted AI systems, GPU optimization, and production ML infrastructure. Building Kurai-Transcribe, KuraiMusik, and KurAI2Video - zero-cost AI solutions that scale.",
   url = Astro.url
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, 'https://davidwebgt.com');
 
-const schema = {
+const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "David Vargas",
@@ -23,41 +23,109 @@ const schema = {
   "jobTitle": "AI Systems Engineer",
   "url": "https://davidwebgt.com",
   "description": description,
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "GT",
+    "addressRegion": "Guatemala"
+  },
   "sameAs": [
     "https://github.com/DavidDevGt",
     "https://www.linkedin.com/in/jdavidvl/"
   ],
   "knowsAbout": [
-    "Artificial Intelligence",
-    "Machine Learning",
-    "Deep Learning",
-    "PyTorch",
-    "TensorFlow",
-    "CUDA",
-    "Model Optimization",
-    "MLOps",
-    "Kubernetes",
-    "Go",
-    "Python",
-    "Computer Vision",
+    "AI Systems Engineering",
+    "Machine Learning Infrastructure",
+    "Self-Hosted AI",
+    "Faster-Whisper",
+    "Speech Recognition",
     "Natural Language Processing",
-    "Distributed Systems",
-    "Real-time AI",
-    "ML Infrastructure"
+    "Kubernetes",
+    "MLOps",
+    "CUDA",
+    "GPU Optimization",
+    "Python",
+    "Go",
+    "FastAPI",
+    "Liquidsoap",
+    "Real-time AI Systems",
+    "Distributed Systems"
   ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What experience do you have in fintech development?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I have experience developing financial systems including payment processing, transaction management, compliance frameworks, and financial data analytics. I've worked on secure API design, regulatory requirements, and high-availability systems for financial applications."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do you focus on self-hosted AI instead of cloud APIs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Self-hosted AI eliminates vendor lock-in and dramatically reduces costs. Cloud AI APIs can cost $15,000+ for 10,000 videos at $0.15-0.40 per second. The same infrastructure self-hosted costs $0 in API fees. Plus you get complete data sovereignty, custom optimizations, and the ability to scale without worrying about rate limits or service outages."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you optimize AI systems for production?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I focus on GPU optimization, automated testing, and scalable infrastructure. This includes CUDA memory management, CI/CD pipelines for model deployment, comprehensive monitoring with Prometheus, and automated testing frameworks. My goal is systems that run 24/7, scale efficiently, and provide reliable AI capabilities without breaking the bank."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you approach AI integration in business applications?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I focus on practical AI integration that solves real business problems. Whether it's speech recognition, video generation, or predictive analytics, I build self-hosted solutions that maintain data privacy and give clients complete control. Kurai-Transcribe, KuraiMusik, and KurAI2Video demonstrate how AI can enhance business workflows."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What testing frameworks and tools do you use for QA automation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I work with Selenium WebDriver and Playwright for UI automation, Cypress for end-to-end testing, and tools like Jest and Pytest for unit testing. For API testing, I use Postman and RestAssured. My CI/CD experience includes GitHub Actions, Jenkins, and GitLab CI with automated testing pipelines."
+      }
+    }
+  ]
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "David Vargas - AI Systems Engineer",
+  "url": "https://davidwebgt.com",
+  "description": "Portfolio of David Vargas, AI Systems Engineer from Guatemala specializing in self-hosted ML infrastructure and real-time AI systems.",
+  "inLanguage": "es-GT",
+  "author": {
+    "@type": "Person",
+    "name": "David Vargas",
+    "url": "https://davidwebgt.com"
+  }
 };
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="author" content="David Vargas" />
-    <meta name="keywords" content="AI Systems Engineer, Machine Learning Infrastructure, ML Engineer, PyTorch, TensorFlow, Model Optimization, MLOps, Kubernetes, CUDA, Deep Learning, AI Infrastructure" />
+    <meta name="keywords" content="AI Systems Engineer, ML Infrastructure, Self-Hosted AI, Faster-Whisper, Kubernetes, MLOps, GPU Optimization, Real-time AI, Guatemala, Machine Learning Pipeline" />
     <meta name="robots" content="index, follow" />
-    <meta name="language" content="English" />
+    <meta name="language" content="Spanish" />
+    <meta name="geo.region" content="GT" />
+    <meta name="geo.placename" content="Guatemala" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="manifest" href="/manifest.json" />
@@ -75,21 +143,26 @@ const schema = {
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:site_name" content="David Vargas - AI Systems Engineer" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:image" content="https://davidwebgt.com/og-image.jpg" />
+    <meta property="og:locale" content="es_GT" />
+    <meta property="og:image" content="https://davidwebgt.com/og-image.svg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="David Vargas - Ingeniero de Software especializado en desarrollo móvil y cloud" />
+    <meta property="og:image:alt" content="David Vargas - AI Systems Engineer from Guatemala specializing in self-hosted ML infrastructure" />
     
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="https://davidwebgt.com/og-image.jpg" />
+    <meta name="twitter:image" content="https://davidwebgt.com/og-image.svg" />
     <meta name="twitter:creator" content="@davidwebgt" />
     
     <link rel="sitemap" href="/sitemap-index.xml" />
     
-    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    
+    <!-- Plausible Analytics -->
+    <script defer data-domain="davidwebgt.com" src="https://plausible.io/js/script.js"></script>
   </head>
   <body>
     <slot />

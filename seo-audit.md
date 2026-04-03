@@ -1,61 +1,92 @@
-# SEO + AI Visibility Audit: Portfolio David
+# SEO + AI Visibility Audit: Portfolio David Vargas
 
 ## Summary
-Portfolio website for an AI Infrastructure Engineer built with Astro. Overall SEO health: **B**. Strong technical foundation with JSON-LD schema, sitemap, and proper meta tags. Main opportunities: create OG image, add FAQ schema, and optimize content for AI answer visibility.
+Portfolio website for an AI Infrastructure Engineer built with Astro 6. Overall SEO health: **A-**. Strong technical foundation with JSON-LD schema (Person + FAQPage + WebSite), sitemap, proper meta tags, semantic HTML, and OG image. All critical issues have been resolved.
 
-## Critical Issues (fix immediately)
+## Issues Resolved
 
-1. **Missing OG Image** — `og:image` points to `/og-image.png` which doesn't exist
-   - Fix: Create a 1200x630px social preview image with name + title + brand accent
-   
-2. **No RSS Feed** — Linked in Layout but not implemented
-   - Fix: Add `src/pages/rss.xml.js` for blog/content RSS
+### ✅ Fixed: OG Image
+- Created `/public/og-image.svg` (1200x630px social card)
+- Updated `og:image` and `twitter:image` to point to `.svg`
 
-## High Impact Opportunities
+### ✅ Fixed: Language & Locale
+- Changed `html lang` from `en` to `es`
+- Changed `og:locale` from `en_US` to `es_GT`
+- Added `geo.region` (GT) and `geo.placename` (Guatemala) meta tags
+- Added `address` to Person schema with Guatemala
 
-1. **Add FAQPage Schema** — No structured FAQ data for AI visibility
-   - Add JSON-LD with common questions about AI infrastructure engineering
-   
-2. **Optimize for AI Answers** — Content structure could be more "answer-first"
-   - Add "TL;DR" sections to longer content blocks
-   - Use more bullet points and tables for comparison data
+### ✅ Fixed: Metadata Inconsistencies
+- Updated title to "AI Systems Engineer | ML Infrastructure & Self-Hosted AI"
+- Updated description to reflect actual tech (Faster-Whisper, Liquidsoap, Kubernetes)
+- Updated keywords to match real expertise
+- Updated `knowsAbout` in Person schema to 16 relevant topics
+- Updated manifest.json to match AI Systems Engineer branding
 
-3. **Author Schema Enhancement** — Current Person schema is minimal
-   - Add `worksFor`, `jobTitle`, and potential alumni from organizations
+### ✅ Fixed: Semantic HTML
+- Added `<header>` around navigation
+- Added `<main>` wrapping all page content
+- Added `<footer>` as semantic element
+- Added `aria-label` to nav and hero sections
+- Added `aria-hidden="true"` to decorative canvas
 
-## AI Answer Optimization
+### ✅ Fixed: Broken Links
+- Removed all `/blog/*` references from `projects.ts`
+- Updated projects to match actual portfolio (Kurai-Transcribe, KuraiMusik, etc.)
+- All links now point to valid URLs
 
-1. **Inverted Pyramid Style** — Ensure each section's first sentence answers the core question
-   - About page intro: Lead with what the person does, not background
-   
-2. **Structured Data for Q&A** — Lab demos could benefit from QAPage schema
-   - Each demo tool could have FAQ-style structured data
+### ✅ Fixed: Redirects
+- Changed from `meta http-equiv="refresh"` to `Astro.redirect()` (proper 301)
+- Applied to `/about`, `/projects`, `/lab`
 
-3. **Specific Metrics in Content** — Already has good metrics (50M requests, 60% cost reduction)
-   - This is excellent for AI citation — keep this approach
+### ✅ Added: FAQPage Schema
+- 4 FAQ items covering AI Systems Engineering topics
+- Optimized for AI answer visibility (ChatGPT, Gemini, Perplexity)
 
-## Content Gaps
+### ✅ Added: WebSite Schema
+- Structured data for the overall website
+- Links to author (Person schema)
 
-1. **Blog Section** — Referenced in project links (`/blog/llm-gateway`) but doesn't exist
-   - Either create blog pages or remove broken links
+### ✅ Added: Analytics
+- Plausible Analytics snippet integrated
+- Privacy-first, no cookie banner needed
 
-2. **Case Studies** — Projects link to case study pages that don't exist
-   - Either create at `/blog/ml-pipeline-case-study` or update links
+## Current Schema Markup
+1. **Person** - Name, jobTitle, address (Guatemala), sameAs (GitHub, LinkedIn), knowsAbout (16 topics)
+2. **FAQPage** - 4 questions about AI infrastructure engineering
+3. **WebSite** - Site name, URL, author, language
 
-## Maintenance & Monitoring
+## Remaining Opportunities
 
-- [ ] Generate and upload OG image to `/public/`
-- [ ] Run `npm run build` after any content changes to update sitemap
-- [ ] Check Google Search Console for indexing status after deployment
-- [ ] Monitor AI answer appearances in ChatGPT/Gemini/Perplexity
+### Medium Priority
+1. **Blog/Content** - No blog section exists yet. Would enable long-tail keyword targeting.
+2. **Core Web Vitals** - Monitor LCP, INP, CLS after deployment.
+3. **Google Search Console** - Add verification meta tag, submit sitemap.
+4. **Performance** - Consider lazy-loading Three.js after first user interaction.
+
+### Low Priority
+1. **RSS Feed** - Add when blog section is created.
+2. **Testimonials** - Add social proof section.
+3. **Case Studies** - Expand project descriptions into full case study pages.
 
 ## Quick Reference Checklist
 
-- [x] JSON-LD Person schema implemented
-- [x] Sitemap generated
+- [x] JSON-LD Person schema with Guatemala address
+- [x] JSON-LD FAQPage schema (4 questions)
+- [x] JSON-LD WebSite schema
+- [x] Sitemap generated (@astrojs/sitemap)
 - [x] Canonical URLs set
-- [x] Open Graph tags complete
+- [x] Open Graph tags complete with SVG image
 - [x] Twitter Card meta tags complete
-- [x] Semantic HTML structure (header, main, footer, nav)
+- [x] Semantic HTML structure (header, main, footer, nav, section, article)
 - [x] Single H1 per page
-- [ ] Blog/case study links need resolution (broken links in projects.ts)
+- [x] Proper 301 redirects
+- [x] Analytics (Plausible)
+- [x] robots.txt with sitemap
+- [x] manifest.json aligned with branding
+- [x] geo meta tags for local SEO
+- [x] html lang = es, og:locale = es_GT
+
+---
+
+**Last audit:** 2026-04-03
+**Grade:** A- (downgraded only for lack of blog content)

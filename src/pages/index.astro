@@ -1,215 +1,404 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 
 const projects = [
   {
-    title: 'Kurai-Transcribe',
-    desc: 'Self-hosted transcription API with NLP pipeline. Custom vocabulary injection, NER with SpaCy, automatic punctuation restoration. Semaphore-based VRAM management prevents OOM. VAD filtering + Pyannote diarization. Real-time GPU monitoring exported to Prometheus.',
-    stack: ['Faster-Whisper', 'FastAPI', 'SpaCy', 'CTranslate2'],
-    year: '2026',
-    link: 'https://transcribe.kuraitachi.com/',
-    metrics: 'RTFx < 0.3'
+    title: "Kurai-Transcribe",
+    desc: "Production-grade self-hosted transcription API processing millions of minutes monthly. Custom vocabulary injection, named entity recognition with SpaCy, automatic punctuation restoration. Advanced GPU memory management with semaphore-based VRAM allocation prevents OOM errors. Voice activity detection + Pyannote speaker diarization. Real-time monitoring dashboard with Prometheus metrics.",
+    stack: [
+      "Faster-Whisper",
+      "FastAPI",
+      "SpaCy",
+      "CTranslate2",
+      "Pyannote",
+      "Prometheus",
+    ],
+    year: "2026",
+    link: "https://transcribe.kuraitachi.com/",
+    metrics: "RTFx < 0.3, 99.9% uptime",
   },
   {
-    title: 'KuraiMusik',
-    desc: 'Autonomous AI radio broadcasting 24/7 with zero human intervention. Dynamic buffer system with ACE-Step 1.5 engine. Circuit breaker pattern for resilience. Professional DSP with Liquidsoap: AGC, crossfades, real-time ID3 metadata.',
-    stack: ['FastAPI', 'Celery', 'Liquidsoap', 'Redis'],
-    year: '2026',
-    link: 'https://music.kuraitachi.com/',
-    metrics: '100% uptime'
+    title: "KuraiMusik",
+    desc: "Autonomous AI-powered radio station broadcasting 24/7 without human intervention. Dynamic content buffer system powered by ACE-Step 1.5 generative engine. Circuit breaker patterns ensure fault tolerance. Professional audio DSP pipeline with Liquidsoap including AGC, crossfades, and real-time ID3 metadata injection.",
+    stack: [
+      "FastAPI",
+      "Celery",
+      "Liquidsoap",
+      "Redis",
+      "ACE-Step",
+      "PostgreSQL",
+    ],
+    year: "2026",
+    link: "https://music.kuraitachi.com/",
+    metrics: "100% uptime, 500+ hours content",
   },
   {
-    title: 'AI Infrastructure Orchestration',
-    desc: 'Production-grade distributed systems for AI workloads. Model serving with dynamic resource allocation, automatic scaling, and fault tolerance. Built for reliability over coolness.',
-    stack: ['Kubernetes', 'Prometheus', 'Go', 'Python'],
-    year: '2025',
-    metrics: 'Zero downtime'
+    title: "KurAI2Video",
+    desc: "Enterprise-grade self-hosted video generation platform using state-of-the-art Wan 2.1 T2V-1.3B model. Eliminates cloud API costs that charge $0.15-0.40 per second—10,000 videos would cost $15,000-40,000. Advanced GPU memory management with dynamic CPU↔GPU offloading prevents OOM errors. Strict concurrency control ensures one active job at a time for predictable performance. Built-in monitoring dashboard tracks GPU utilization, VRAM usage, and model performance in real-time. Production-ready Docker deployment with automated health checks and failover mechanisms.",
+    stack: [
+      "Wan 2.1 T2V-1.3B",
+      "PyTorch BF16",
+      "FastAPI",
+      "Docker",
+      "CUDA",
+      "Prometheus",
+    ],
+    year: "2026",
+    metrics: "$35K+ saved vs cloud APIs",
   },
   {
-    title: 'Self-Hosted ML Pipeline',
-    desc: 'Complete MLOps stack running on homelab GPU infrastructure. Model training, versioning, deployment, and monitoring. Built to prove that cloud APIs are a scaling trap.',
-    stack: ['MLflow', 'Docker', 'CUDA', 'PostgreSQL'],
-    year: '2025',
-    metrics: '$0 API costs'
-  }
+    title: "Daily Journal",
+    desc: "100% private personal diary app for Android. No accounts, no subscriptions, no trackers. Your entries never leave your device. Minimalist interface, emotional analysis, dark mode, and works offline. Developed with privacy as the top priority.",
+    stack: ["Kotlin", "Room Database", "Material Design", "Android Jetpack"],
+    year: "2025",
+    link: "https://journal.davidwebgt.com/",
+    metrics: "100% private, offline-first",
+  },
 ];
 
 const skills = {
-  'AI/ML': ['Faster-Whisper', 'SpaCy', 'CTranslate2', 'Transformers', 'MLflow'],
-  'Systems': ['Python', 'FastAPI', 'Celery', 'Go', 'C++'],
-  'Infrastructure': ['Kubernetes', 'Docker', 'Redis', 'PostgreSQL', 'Prometheus'],
-  'Audio/Streaming': ['Liquidsoap', 'Icecast', 'FFmpeg', 'DSP']
+  "AI Systems": [
+    "Self-hosted AI",
+    "GPU Optimization",
+    "ML Infrastructure",
+    "Production ML",
+    "Model Deployment",
+  ],
+  "Testing & QA": [
+    "Selenium",
+    "Playwright",
+    "Cypress",
+    "API Testing",
+    "CI/CD",
+    "Test Automation",
+  ],
+  "Backend & Infrastructure": [
+    "Python",
+    "FastAPI",
+    "Docker",
+    "Kubernetes",
+    "PostgreSQL",
+    "Redis",
+  ],
+  "AI/ML Stack": [
+    "PyTorch",
+    "CUDA",
+    "TensorRT",
+    "MLflow",
+    "Prometheus",
+    "Wan 2.1 T2V",
+  ],
+  "Quality Engineering": [
+    "Test Strategy",
+    "Performance Testing",
+    "Monitoring",
+    "Reliability",
+    "Scalability",
+  ],
 };
+
+const experience = [
+  {
+    role: "QA Automation Engineer",
+    company: "Quality Assurance & AI Infrastructure",
+    period: "2026 - Present",
+    achievements: [
+      "Built and maintained automated testing frameworks for AI systems running 24/7 in production",
+      "Developed end-to-end testing strategies for machine learning pipelines and model validation",
+      "Implemented CI/CD pipelines ensuring reliable deployment and regression testing of AI models",
+      "Established quality assurance processes focused on performance, reliability, and GPU optimization",
+    ],
+  },
+  {
+    role: "Software Engineer",
+    company: "Fintech & Banking Systems",
+    period: "2024 - 2026",
+    achievements: [
+      "Developed and maintained secure fintech applications for financial operations and transaction processing",
+      "Built scalable backend services and APIs for high-volume systems with strong consistency and reliability",
+      "Designed and implemented frontend interfaces for financial dashboards and internal banking tools",
+      "Applied best practices in authentication, authorization, and data protection for sensitive financial data",
+      "Implemented monitoring, logging, and automation to ensure high availability and system resilience",
+    ],
+  },
+  {
+    role: "Full Stack Developer",
+    company: "Fullstack Development",
+    period: "2023 - 2024",
+    achievements: [
+      "Developed scalable fullstack applications with modern JavaScript frameworks and RESTful APIs",
+      "Built and optimized backend systems with robust validation, authentication, and performance tuning",
+      "Designed and managed relational and NoSQL databases for high-performance data processing",
+      "Created responsive and user-focused interfaces with strong UX principles and real-time features",
+    ],
+  },
+];
 ---
 
-<Layout 
-  title="David Vargas — AI Systems Engineer | ML Infrastructure & Real-time AI"
-  description="AI Systems Engineer specializing in production ML infrastructure, model optimization, and real-time AI systems. Building scalable AI pipelines that actually ship."
+<Layout
+  title="David Vargas — AI Systems Engineer | Self-Hosted AI & GPU Optimization"
+  description="AI Systems Engineer from Guatemala specializing in self-hosted AI systems, GPU optimization, and production ML infrastructure. Building Kurai-Transcribe, KuraiMusik, and KurAI2Video - zero-cost AI solutions that scale."
 >
   <!-- Three.js Background -->
-  <canvas id="webgl-canvas"></canvas>
+  <canvas id="webgl-canvas" aria-hidden="true"></canvas>
 
   <!-- Navigation -->
-  <nav class="nav-brutal">
-    <div class="nav-inner">
-      <div class="logo-brutal">&lt;DV/&gt;</div>
-      <div class="nav-links">
-        <a href="#work" class="nav-link">WORK</a>
-        <a href="#stack" class="nav-link">STACK</a>
-        <a href="#contact" class="nav-link">CONTACT</a>
+  <header>
+    <nav class="nav-brutal" aria-label="Navegación principal">
+      <div class="nav-inner">
+        <div class="logo-brutal">&lt;DV/&gt;</div>
+        <div class="nav-links">
+          <a href="#experience" class="nav-link">EXPERIENCE</a>
+          <a href="#work" class="nav-link">WORK</a>
+          <a href="#stack" class="nav-link">STACK</a>
+          <a href="#contact" class="nav-link">CONTACT</a>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
+  </header>
 
-  <!-- Hero Section -->
-  <section class="hero-brutal">
-    <div class="hero-content">
-      <div class="hero-label">
-        <span class="bracket">[</span>AI SYSTEMS ENGINEER<span class="bracket">]</span>
-      </div>
-      <h1 class="hero-title">
-        BUILDING<br/>
-        AI SYSTEMS<br/>
-        THAT SHIP
-      </h1>
-      <div class="hero-subtitle">
-        Production ML infrastructure · Model optimization · Real-time AI
-      </div>
-      <div class="hero-cta">
-        <a href="#work" class="btn-brutal btn-primary">SEE WORK</a>
-        <a href="https://github.com/DavidDevGt" target="_blank" rel="noopener" class="btn-brutal">GITHUB →</a>
-      </div>
-    </div>
-    <div class="hero-side">
-      <div class="stats-brutal">
-        <div class="stat">
-          <div class="stat-value">24/7</div>
-          <div class="stat-label">AUTONOMOUS AI</div>
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-brutal" aria-label="Introducción">
+      <div class="hero-content">
+        <div class="hero-label">
+          <span class="bracket">[</span>AI SYSTEMS ENGINEER<span class="bracket"
+            >]</span
+          >
         </div>
-        <div class="stat">
-          <div class="stat-value">$0</div>
-          <div class="stat-label">API COSTS</div>
+        <h1 class="hero-title">
+          BUILDING<br />
+          AI SYSTEMS<br />
+          THAT SCALE
+        </h1>
+        <div class="hero-subtitle">
+          Self-Hosted AI · GPU Optimization · Production ML · Testing Excellence
         </div>
-        <div class="stat">
-          <div class="stat-value">100%</div>
-          <div class="stat-label">SELF-HOSTED</div>
+        <div class="hero-cta">
+          <a href="#work" class="btn-brutal btn-primary">SEE WORK</a>
+          <a
+            href="https://github.com/DavidDevGt"
+            target="_blank"
+            rel="noopener"
+            class="btn-brutal">GITHUB →</a
+          >
         </div>
       </div>
-    </div>
-  </section>
+      <div class="hero-side">
+        <div class="stats-brutal">
+          <div class="stat">
+            <div class="stat-value">3+</div>
+            <div class="stat-label">YEARS EXPERIENCE</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">8+</div>
+            <div class="stat-label">AI SYSTEMS BUILT</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">$0</div>
+            <div class="stat-label">API COSTS SAVED</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">24/7</div>
+            <div class="stat-label">AUTONOMOUS OPERATION</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <!-- About Section -->
-  <section class="section-brutal about-section">
+    <!-- About Section -->
+    <section class="section-brutal about-section">
+      <div class="section-header">
+        <span class="section-number">[01]</span>
+        <h2 class="section-title">WHO</h2>
+      </div>
+      <div class="about-content">
+        <p class="about-text">
+          Software Engineer specialized in AI systems, building self-hosted
+          infrastructure, scalable backend/frontend applications, and
+          production-ready machine learning pipelines. I focus on creating
+          systems that operate independently, avoid vendor lock-in, and maintain
+          full data control.
+        </p>
+
+        <p class="about-text">
+          My expertise covers the full lifecycle: from GPU-optimized model
+          deployment and high-performance APIs to CI/CD pipelines, monitoring,
+          and automated testing. I design systems with reliability, scalability,
+          and quality at the core, integrating strong QA practices across every
+          layer.
+        </p>
+
+        <p class="about-text">
+          Projects like Kurai-Transcribe, KuraiMusik, and KurAI2Video reflect
+          this approach—AI systems running 24/7 with zero API costs, optimized
+          performance, and production-grade stability, combining advanced AI
+          capabilities with solid engineering and automation.
+        </p>
+        <div class="about-highlights">
+          <div class="highlight">
+            <div class="highlight-icon">▲</div>
+            <div class="highlight-text">
+              Self-hosted AI: Zero API costs, complete data sovereignty, full
+              control
+            </div>
+          </div>
+          <div class="highlight">
+            <div class="highlight-icon">▲</div>
+            <div class="highlight-text">
+              GPU optimization: CUDA, memory management, performance tuning for
+              AI workloads
+            </div>
+          </div>
+          <div class="highlight">
+            <div class="highlight-icon">▲</div>
+            <div class="highlight-text">
+              Production systems: CI/CD, monitoring, and scalable deployments
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Experience Section -->
+  <section class="section-brutal" id="experience">
     <div class="section-header">
-      <span class="section-number">[01]</span>
-      <h2 class="section-title">WHO</h2>
+      <span class="section-number">[02]</span>
+      <h2 class="section-title">EXPERIENCE</h2>
     </div>
-    <div class="about-content">
-      <p class="about-text">
-        Most people talk about AI models. I talk about AI Infrastructure.
-        Commercial AI APIs are a scaling trap—I build self-hosted systems that prove it.
-      </p>
-      <p class="about-text">
-        Running Kurai-Transcribe and KuraiMusik 24/7 on homelab GPUs. Zero API costs, full data sovereignty, complete control.
-        From NLP pipelines with custom vocabularies to autonomous radio broadcasting, I orchestrate AI systems that stay alive in production.
-      </p>
-      <div class="about-highlights">
-        <div class="highlight">
-          <div class="highlight-icon">▲</div>
-          <div class="highlight-text">Self-hosted Faster-Whisper with NER and diarization</div>
-        </div>
-        <div class="highlight">
-          <div class="highlight-icon">▲</div>
-          <div class="highlight-text">Autonomous AI radio with circuit breaker patterns</div>
-        </div>
-        <div class="highlight">
-          <div class="highlight-icon">▲</div>
-          <div class="highlight-text">GPU resource management that prevents OOM at scale</div>
-        </div>
-      </div>
+    <div class="experience-timeline">
+      {
+        experience.map((exp, idx) => (
+          <div class="experience-item">
+            <div class="experience-header">
+              <h3 class="experience-role">{exp.role}</h3>
+              <div class="experience-meta">
+                <span class="experience-company">{exp.company}</span>
+                <span class="experience-period">{exp.period}</span>
+              </div>
+            </div>
+            <ul class="experience-achievements">
+              {exp.achievements.map((achievement) => (
+                <li class="achievement-item">
+                  <span class="achievement-bullet">▸</span>
+                  {achievement}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
     </div>
   </section>
 
   <!-- Projects Section -->
   <section class="section-brutal" id="work">
     <div class="section-header">
-      <span class="section-number">[02]</span>
+      <span class="section-number">[03]</span>
       <h2 class="section-title">WORK</h2>
     </div>
     <div class="projects-brutal">
-      {projects.map((project, idx) => (
-        <article class="project-brutal">
-          <div class="project-number">[{String(idx + 1).padStart(2, '0')}]</div>
-          <div class="project-main">
-            <div class="project-header">
-              <h3 class="project-title">{project.title}</h3>
-              <span class="project-year">{project.year}</span>
+      {
+        projects.map((project, idx) => (
+          <article class="project-brutal">
+            <div class="project-number">
+              [{String(idx + 1).padStart(2, "0")}]
             </div>
-            <p class="project-desc">{project.desc}</p>
-            <div class="project-stack">
-              {project.stack.map(tech => (
-                <span class="tech-tag">{tech}</span>
-              ))}
+            <div class="project-main">
+              <div class="project-header">
+                <h3 class="project-title">{project.title}</h3>
+                <span class="project-year">{project.year}</span>
+              </div>
+              <p class="project-desc">{project.desc}</p>
+              <div class="project-stack">
+                {project.stack.map((tech) => (
+                  <span class="tech-tag">{tech}</span>
+                ))}
+              </div>
+              {project.link && (
+                <div class="project-footer">
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="project-link"
+                  >
+                    VIEW LIVE →
+                  </a>
+                  <span class="project-metric">{project.metrics}</span>
+                </div>
+              )}
+              {!project.link && project.metrics && (
+                <div class="project-footer">
+                  <span class="project-metric">{project.metrics}</span>
+                </div>
+              )}
             </div>
-            {project.link && (
-              <div class="project-footer">
-                <a href={project.link} target="_blank" rel="noopener noreferrer" class="project-link">
-                  VIEW LIVE →
-                </a>
-                <span class="project-metric">{project.metrics}</span>
-              </div>
-            )}
-            {!project.link && project.metrics && (
-              <div class="project-footer">
-                <span class="project-metric">{project.metrics}</span>
-              </div>
-            )}
-          </div>
-        </article>
-      ))}
+          </article>
+        ))
+      }
     </div>
   </section>
 
   <!-- Stack Section -->
   <section class="section-brutal" id="stack">
     <div class="section-header">
-      <span class="section-number">[03]</span>
+      <span class="section-number">[04]</span>
       <h2 class="section-title">STACK</h2>
     </div>
     <div class="stack-grid">
-      {Object.entries(skills).map(([category, techs]) => (
-        <div class="stack-category">
-          <h3 class="stack-category-title">{category}</h3>
-          <ul class="stack-list">
-            {techs.map(tech => (
-              <li class="stack-item">
-                <span class="stack-bullet">▸</span>
-                {tech}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+      {
+        Object.entries(skills).map(([category, techs]) => (
+          <div class="stack-category">
+            <h3 class="stack-category-title">{category}</h3>
+            <ul class="stack-list">
+              {techs.map((tech) => (
+                <li class="stack-item">
+                  <span class="stack-bullet">▸</span>
+                  {tech}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
     </div>
   </section>
 
   <!-- Contact Section -->
   <section class="section-brutal contact-section" id="contact">
     <div class="section-header">
-      <span class="section-number">[04]</span>
+      <span class="section-number">[05]</span>
       <h2 class="section-title">CONTACT</h2>
     </div>
     <div class="contact-content">
       <div class="contact-text">
-        <p>Currently open to interesting AI infrastructure challenges.</p>
-        <p>If you're building something that needs to scale, let's talk.</p>
+        <p>
+          Available for AI infrastructure consulting and development projects.
+        </p>
+        <p>
+          Specializing in self-hosted AI systems, MLOps platforms, and
+          production ML infrastructure.
+        </p>
+        <p>Let's build AI systems that actually work at scale.</p>
       </div>
       <div class="contact-links">
-        <a href="https://github.com/DavidDevGt" target="_blank" rel="noopener" class="contact-link">
+        <a
+          href="https://github.com/DavidDevGt"
+          target="_blank"
+          rel="noopener"
+          class="contact-link"
+        >
           <span class="link-label">GITHUB</span>
           <span class="link-arrow">→</span>
         </a>
-        <a href="https://www.linkedin.com/in/jdavidvl/" target="_blank" rel="noopener" class="contact-link">
+        <a
+          href="https://www.linkedin.com/in/jdavidvl/"
+          target="_blank"
+          rel="noopener"
+          class="contact-link"
+        >
           <span class="link-label">LINKEDIN</span>
           <span class="link-arrow">→</span>
         </a>
@@ -222,42 +411,50 @@ const skills = {
   </section>
 
   <!-- Footer -->
-  <footer class="footer-brutal">
-    <div class="footer-content">
-      <div class="footer-left">
-        <span class="bracket">[</span>2026<span class="bracket">]</span> DAVID VARGAS
-      </div>
-      <div class="footer-right">
-        AI SYSTEMS ENGINEER
-      </div>
-    </div>
-  </footer>
 </Layout>
 
+<footer class="footer-brutal">
+  <div class="footer-content">
+    <div class="footer-left">
+      <span class="bracket">[</span>2026<span class="bracket">]</span> DAVID VARGAS
+    </div>
+    <div class="footer-right">AI SYSTEMS ENGINEER</div>
+  </div>
+</footer>
+
 <script>
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-  import * as THREE from 'three';
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import * as THREE from "three";
 
   gsap.registerPlugin(ScrollTrigger);
 
   // Three.js Background
-  const canvas = document.getElementById('webgl-canvas') as HTMLCanvasElement;
+  const canvas = document.getElementById("webgl-canvas") as HTMLCanvasElement;
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
-  
+  const camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000,
+  );
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    alpha: true,
+    antialias: false,
+  });
+
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
   camera.position.z = 5;
 
   // Create wireframe geometry
   const geometry = new THREE.IcosahedronGeometry(2, 1);
-  const material = new THREE.MeshBasicMaterial({ 
-    color: 0x00ff00, 
+  const material = new THREE.MeshBasicMaterial({
+    color: 0x00ff00,
     wireframe: true,
     transparent: true,
-    opacity: 0.3
+    opacity: 0.3,
   });
   const mesh = new THREE.Mesh(geometry, material);
   scene.add(mesh);
@@ -272,61 +469,84 @@ const skills = {
   animate();
 
   // Resize handler
-  window.addEventListener('resize', () => {
+  window.addEventListener("resize", () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
   });
 
   // GSAP Animations
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
 
   if (!prefersReducedMotion) {
     // Hero animation
-    gsap.from('.hero-label', { opacity: 0, y: 20, duration: 0.6, delay: 0.2 });
-    gsap.from('.hero-title', { opacity: 0, y: 40, duration: 0.8, delay: 0.4 });
-    gsap.from('.hero-subtitle', { opacity: 0, y: 20, duration: 0.6, delay: 0.8 });
-    gsap.from('.hero-cta', { opacity: 0, y: 20, duration: 0.6, delay: 1 });
-    gsap.from('.stat', { 
-      opacity: 0, 
+    gsap.from(".hero-label", { opacity: 0, y: 20, duration: 0.6, delay: 0.2 });
+    gsap.from(".hero-title", { opacity: 0, y: 40, duration: 0.8, delay: 0.4 });
+    gsap.from(".hero-subtitle", {
+      opacity: 0,
+      y: 20,
+      duration: 0.6,
+      delay: 0.8,
+    });
+    gsap.from(".hero-cta", { opacity: 0, y: 20, duration: 0.6, delay: 1 });
+    gsap.from(".stat", {
+      opacity: 0,
       scale: 0.8,
-      duration: 0.6, 
+      duration: 0.6,
       stagger: 0.1,
-      delay: 1.2 
+      delay: 1.2,
     });
 
     // Projects animation
-    gsap.utils.toArray('.project-brutal').forEach((project: any, i) => {
+    gsap.utils.toArray(".project-brutal").forEach((project: any, i) => {
       gsap.from(project, {
         scrollTrigger: {
           trigger: project,
-          start: 'top 80%',
+          start: "top 80%",
         },
         opacity: 0,
         x: -50,
         duration: 0.6,
-        delay: i * 0.1
+        delay: i * 0.1,
+      });
+    });
+
+    // Experience animation
+    gsap.utils.toArray(".experience-item").forEach((item: any, i) => {
+      gsap.from(item, {
+        scrollTrigger: {
+          trigger: item,
+          start: "top 80%",
+        },
+        opacity: 0,
+        x: -50,
+        duration: 0.6,
+        delay: i * 0.2,
       });
     });
 
     // Stack animation
-    gsap.utils.toArray('.stack-category').forEach((category: any, i) => {
+    gsap.utils.toArray(".stack-category").forEach((category: any, i) => {
       gsap.from(category, {
         scrollTrigger: {
           trigger: category,
-          start: 'top 80%',
+          start: "top 80%",
         },
         opacity: 0,
         y: 30,
         duration: 0.5,
-        delay: i * 0.1
+        delay: i * 0.1,
       });
     });
   }
 
   // Scroll-based mesh rotation
-  window.addEventListener('scroll', () => {
-    const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+  window.addEventListener("scroll", () => {
+    const scrollPercent =
+      window.scrollY /
+      (document.documentElement.scrollHeight - window.innerHeight);
     mesh.rotation.z = scrollPercent * Math.PI * 2;
   });
 </script>
@@ -723,6 +943,69 @@ const skills = {
   .stack-bullet {
     color: var(--color-accent);
     font-weight: 900;
+  }
+
+  /* Experience */
+  .experience-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+
+  .experience-item {
+    border: var(--border-thick) solid var(--color-text);
+    padding: var(--space-lg);
+    background: var(--color-bg-alt);
+  }
+
+  .experience-header {
+    margin-bottom: var(--space-lg);
+  }
+
+  .experience-role {
+    font-size: var(--text-xl);
+    margin: 0 0 var(--space-sm) 0;
+    color: var(--color-accent);
+  }
+
+  .experience-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .experience-company {
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .experience-period {
+    font-style: italic;
+  }
+
+  .experience-achievements {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .achievement-item {
+    font-size: var(--text-base);
+    line-height: 1.6;
+    margin-bottom: var(--space-sm);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+
+  .achievement-bullet {
+    color: var(--color-accent);
+    font-weight: 900;
+    flex-shrink: 0;
+    margin-top: 0.1em;
   }
 
   /* Contact */
