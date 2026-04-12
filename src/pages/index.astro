@@ -135,6 +135,12 @@ const experience = [
   <!-- Three.js Background -->
   <canvas id="webgl-canvas" aria-hidden="true"></canvas>
 
+  <!-- Audio Controls -->
+  <div id="audio-controls" class="audio-controls">
+    <button id="audio-toggle" class="audio-btn" title="Toggle Audio">🔇</button>
+    <input type="range" id="volume-slider" min="0" max="0.2" step="0.01" value="0.05" class="volume-slider">
+  </div>
+
   <!-- Navigation -->
   <header>
     <nav class="nav-brutal" aria-label="Navegación principal">
@@ -422,8 +428,13 @@ const experience = [
         gsapAnimations = new GSAPAnimations();
         gsapAnimations.init();
 
-        // Initialize Three.js scene
-        threeScene = new ThreeScene({ canvasId: 'webgl-canvas' });
+        // Initialize Three.js scene with dubstep audio reactivity
+        threeScene = new (ThreeScene as any)({
+          canvasId: 'webgl-canvas',
+          audioEnabled: true,
+          audioVolume: 0.05,
+          audioReactivity: 1.2 // Aggressive reactivity for dubstep
+        });
         await threeScene.init();
       } catch (error) {
         console.warn("Failed to initialize animations:", error);
@@ -434,6 +445,55 @@ const experience = [
       document.addEventListener("DOMContentLoaded", initAll);
     } else {
       initAll();
+    }
+
+  // Audio controls setup
+    const setupAudioControls = () => {
+      const audioToggle = document.getElementById('audio-toggle') as HTMLButtonElement;
+      const volumeSlider = document.getElementById('volume-slider') as HTMLInputElement;
+
+      // Inicialmente mostrar que está muted
+      if (audioToggle) {
+        audioToggle.textContent = '🔇';
+        audioToggle.title = 'Unmute Dubstep Audio';
+      }
+
+      // Configurar toggle de audio
+      if (audioToggle && threeScene) {
+        audioToggle.addEventListener('click', () => {
+          if (!threeScene) return;
+          const isMuted = audioToggle.textContent === '🔇';
+          (threeScene as any).toggleAudio(!isMuted);
+          audioToggle.textContent = isMuted ? '🔊' : '🔇';
+          audioToggle.title = isMuted ? 'Mute Dubstep' : 'Unmute Dubstep';
+        });
+      }
+
+      // Configurar slider de volumen
+      if (volumeSlider && threeScene) {
+        volumeSlider.addEventListener('input', (e) => {
+          if (!threeScene) return;
+          const volume = parseFloat((e.target as HTMLInputElement).value);
+          (threeScene as any).updateConfig({ audioVolume: volume });
+        });
+      }
+
+      // Intentar activar audio automáticamente después de un breve delay
+      setTimeout(() => {
+        if (threeScene) {
+          (threeScene as any).toggleAudio(true);
+          if (audioToggle) {
+            audioToggle.textContent = '🔊';
+            audioToggle.title = 'Mute Dubstep';
+          }
+        }
+      }, 1000);
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", setupAudioControls);
+    } else {
+      setupAudioControls();
     }
   }
 </script>
@@ -1008,6 +1068,58 @@ const experience = [
     }
   }
 
+  /* Audio Controls */
+  .audio-controls {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid var(--color-accent);
+    padding: 15px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+  }
+
+  .audio-btn {
+    background: var(--color-bg);
+    border: 2px solid var(--color-accent);
+    color: var(--color-accent);
+    font-size: 18px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+  }
+
+  .audio-btn:hover {
+    background: var(--color-accent);
+    color: var(--color-bg);
+    transform: translate(-2px, -2px);
+    box-shadow: 2px 2px 0 var(--color-text);
+  }
+
+  .volume-slider {
+    width: 100px;
+    height: 4px;
+    background: var(--color-text);
+    outline: none;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+
+  .volume-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--color-accent);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
   @media (max-width: 640px) {
     .hero-title {
       font-size: 2.5rem;
@@ -1025,6 +1137,22 @@ const experience = [
     .btn-brutal {
       width: 100%;
       text-align: center;
+    }
+
+    .audio-controls {
+      bottom: 10px;
+      right: 10px;
+      padding: 10px;
+      gap: 8px;
+    }
+
+    .audio-btn {
+      font-size: 16px;
+      padding: 6px 10px;
+    }
+
+    .volume-slider {
+      width: 80px;
     }
   }
 </style>

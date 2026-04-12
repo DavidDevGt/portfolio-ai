@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:80"
+      - "12420:12420"
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost"]
@@ -19,7 +19,7 @@ services:
       - "traefik.http.routers.portfolio.rule=Host(`yourdomain.com`)"
       - "traefik.http.routers.portfolio.entrypoints=websecure"
       - "traefik.http.routers.portfolio.tls.certresolver=letsencrypt"
-      - "traefik.port=80"
+      - "traefik.port=12420"
 
 networks:
   default:
