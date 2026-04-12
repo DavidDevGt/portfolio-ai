@@ -253,10 +253,17 @@ code {
   border: 0;
 }
 
+/* ========================================
+   TABLET (≤ 768px)
+   ======================================== */
 @media (max-width: 768px) {
   :root {
-    --text-3xl: 2.5rem;
-    --text-2xl: 2rem;
+    --text-5xl: 4rem;
+    --text-4xl: 2.5rem;
+    --text-3xl: 2rem;
+    --text-2xl: 1.5rem;
+    --text-xl: 1.125rem;
+    --text-lg: 1rem;
   }
   
   .container {
@@ -264,6 +271,140 @@ code {
   }
   
   .section {
-    padding: var(--space-2xl) 0;
+    padding: var(--space-lg) 0;
+  }
+  
+  h1 {
+    font-size: clamp(2rem, 8vw, var(--text-4xl));
+  }
+  
+  h2 {
+    font-size: clamp(1.5rem, 6vw, var(--text-3xl));
+  }
+
+  h3 {
+    font-size: var(--text-xl);
+  }
+}
+
+/* ========================================
+   SMALL PHONES (≤ 640px)
+   ======================================== */
+@media (max-width: 640px) {
+  :root {
+    --text-5xl: 2rem;
+    --text-4xl: 1.75rem;
+    --text-3xl: 1.5rem;
+    --text-2xl: 1.25rem;
+    --text-xl: 1rem;
+    --text-lg: 0.95rem;
+    --text-md: 0.9rem;
+    
+    --space-2xl: 3rem;
+    --space-xl: 1.5rem;
+    --space-lg: 1.25rem;
+    --space-md: 1rem;
+    --space-sm: 0.75rem;
+    
+    --border-thick: 3px;
+    --border-medium: 2px;
+  }
+  
+  .container {
+    padding: 0 0.75rem;
+  }
+  
+  .section {
+    padding: var(--space-lg) 0;
+  }
+  
+  body {
+    font-size: 0.9rem;
+  }
+  
+  h1 {
+    font-size: clamp(1.25rem, 5.5vw, 1.75rem);
+  }
+  
+  h2 {
+    font-size: clamp(1rem, 4.5vw, 1.5rem);
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+  }
+  
+  p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+}
+
+/* ========================================
+   SMALL PHONES (≤ 480px)
+   ======================================== */
+@media (max-width: 480px) {
+  :root {
+    --text-5xl: 1.5rem;
+    --text-4xl: 1.25rem;
+    --text-3xl: 1.1rem;
+    --text-2xl: 1rem;
+    --text-xl: 0.95rem;
+    --text-lg: 0.9rem;
+    --text-md: 0.85rem;
+    --text-sm: 0.75rem;
+    --text-xs: 0.65rem;
+    
+    --space-2xl: 2rem;
+    --space-xl: 1.25rem;
+    --space-lg: 1rem;
+    --space-md: 0.75rem;
+    --space-sm: 0.5rem;
+    --space-xs: 0.35rem;
+  }
+  
+  .container {
+    padding: 0 0.6rem;
+  }
+  
+  .section {
+    padding: var(--space-md) 0;
+  }
+  
+  body {
+    font-size: 0.85rem;
+  }
+  
+  h1 {
+    font-size: clamp(1rem, 5vw, 1.25rem);
+    line-height: 1;
+  }
+  
+  h2 {
+    font-size: clamp(0.9rem, 4vw, 1.1rem);
+  }
+
+  h3 {
+    font-size: 0.9rem;
+  }
+  
+  p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+}
+
+/* ========================================
+   ULTRA SMALL PHONES (≤ 360px)
+   ======================================== */
+@media (max-width: 360px) {
+  :root {
+    --text-xs: 0.6rem;
+    --text-sm: 0.7rem;
+    --space-xs: 0.3rem;
+  }
+  
+  h1, h2, h3, h4 {
+    letter-spacing: -0.02em;
   }
 }
