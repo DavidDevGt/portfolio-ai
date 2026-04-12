@@ -93,13 +93,13 @@ const skills = {
 const experience = [
   {
     role: "QA Automation Engineer",
-    company: "Quality Assurance & AI Infrastructure",
-    period: "2026 - Present",
+    company: "Quality Assurance & Automation",
+    period: "2026 – Present",
     achievements: [
-      "Built and maintained automated testing frameworks for AI systems running 24/7 in production",
-      "Developed end-to-end testing strategies for machine learning pipelines and model validation",
-      "Implemented CI/CD pipelines ensuring reliable deployment and regression testing of AI models",
-      "Established quality assurance processes focused on performance, reliability, and GPU optimization",
+      "Built and maintained automated testing frameworks for 24/7 production systems",
+      "Designed end-to-end testing strategies for fintech platforms",
+      "Implemented CI/CD pipelines for reliable deployments and regression testing",
+      "Established QA processes focused on performance, reliability, and system optimization",
     ],
   },
   {
@@ -408,132 +408,184 @@ const experience = [
 </footer>
 
 <script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-  import * as THREE from "three";
+  // Lazy load GSAP and ScrollTrigger
+  const initAnimations = async () => {
+    try {
+      const { gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
 
-  gsap.registerPlugin(ScrollTrigger);
+      gsap.registerPlugin(ScrollTrigger);
 
-  // Three.js Background
-  const canvas = document.getElementById("webgl-canvas") as HTMLCanvasElement;
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(
-    75,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    1000,
-  );
-  const renderer = new THREE.WebGLRenderer({
-    canvas,
-    alpha: true,
-    antialias: false,
-  });
+      // GSAP Animations
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
 
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-  camera.position.z = 5;
+      if (!prefersReducedMotion) {
+        // Hero animation
+        gsap.from(".hero-label", {
+          opacity: 0,
+          y: 20,
+          duration: 0.6,
+          delay: 0.2,
+        });
+        gsap.from(".hero-title", {
+          opacity: 0,
+          y: 40,
+          duration: 0.8,
+          delay: 0.4,
+        });
+        gsap.from(".hero-subtitle", {
+          opacity: 0,
+          y: 20,
+          duration: 0.6,
+          delay: 0.8,
+        });
+        gsap.from(".hero-cta", { opacity: 0, y: 20, duration: 0.6, delay: 1 });
+        gsap.from(".stat", {
+          opacity: 0,
+          scale: 0.8,
+          duration: 0.6,
+          stagger: 0.1,
+          delay: 1.2,
+        });
 
-  // Create wireframe geometry
-  const geometry = new THREE.IcosahedronGeometry(2, 1);
-  const material = new THREE.MeshBasicMaterial({
-    color: 0x00ff00,
-    wireframe: true,
-    transparent: true,
-    opacity: 0.3,
-  });
-  const mesh = new THREE.Mesh(geometry, material);
-  scene.add(mesh);
+        // Projects animation
+        gsap.utils.toArray(".project-brutal").forEach((project: any, i) => {
+          gsap.from(project, {
+            scrollTrigger: {
+              trigger: project,
+              start: "top 80%",
+            },
+            opacity: 0,
+            x: -50,
+            duration: 0.6,
+            delay: i * 0.1,
+          });
+        });
 
-  // Animation loop
-  function animate() {
-    requestAnimationFrame(animate);
-    mesh.rotation.x += 0.001;
-    mesh.rotation.y += 0.002;
-    renderer.render(scene, camera);
+        // Experience animation
+        gsap.utils.toArray(".experience-item").forEach((item: any, i) => {
+          gsap.from(item, {
+            scrollTrigger: {
+              trigger: item,
+              start: "top 80%",
+            },
+            opacity: 0,
+            x: -50,
+            duration: 0.6,
+            delay: i * 0.2,
+          });
+        });
+
+        // Stack animation
+        gsap.utils.toArray(".stack-category").forEach((category: any, i) => {
+          gsap.from(category, {
+            scrollTrigger: {
+              trigger: category,
+              start: "top 80%",
+            },
+            opacity: 0,
+            y: 30,
+            duration: 0.5,
+            delay: i * 0.1,
+          });
+        });
+      }
+    } catch (error) {
+      console.warn("Failed to load GSAP:", error);
+    }
+  };
+
+  // Lazy load Three.js background
+  const initThreeScene = async () => {
+    try {
+      const THREE = await import("three");
+
+      const canvas = document.getElementById(
+        "webgl-canvas",
+      ) as HTMLCanvasElement;
+      if (!canvas) return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000,
+      );
+      const renderer = new THREE.WebGLRenderer({
+        canvas,
+        alpha: true,
+        antialias: false,
+      });
+
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+      camera.position.z = 5;
+
+      // Create wireframe geometry
+      const geometry = new THREE.IcosahedronGeometry(2, 1);
+      const material = new THREE.MeshBasicMaterial({
+        color: 0x00ff00,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.3,
+      });
+      const mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+
+      // Animation loop
+      function animate() {
+        requestAnimationFrame(animate);
+        mesh.rotation.x += 0.001;
+        mesh.rotation.y += 0.002;
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      // Resize handler
+      const handleResize = () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      };
+      window.addEventListener("resize", handleResize);
+
+      // Scroll-based mesh rotation
+      const handleScroll = () => {
+        const scrollPercent =
+          window.scrollY /
+          (document.documentElement.scrollHeight - window.innerHeight);
+        mesh.rotation.z = scrollPercent * Math.PI * 2;
+      };
+      window.addEventListener("scroll", handleScroll);
+
+      // Cleanup function (not used here but available)
+      return () => {
+        window.removeEventListener("resize", handleResize);
+        window.removeEventListener("scroll", handleScroll);
+        renderer.dispose();
+        geometry.dispose();
+        material.dispose();
+      };
+    } catch (error) {
+      console.warn("Failed to load Three.js:", error);
+    }
+  };
+
+  // Initialize everything when DOM is ready
+  if (typeof window !== "undefined") {
+    const initAll = async () => {
+      await Promise.all([initAnimations(), initThreeScene()]);
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initAll);
+    } else {
+      initAll();
+    }
   }
-  animate();
-
-  // Resize handler
-  window.addEventListener("resize", () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
-
-  // GSAP Animations
-  const prefersReducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)",
-  ).matches;
-
-  if (!prefersReducedMotion) {
-    // Hero animation
-    gsap.from(".hero-label", { opacity: 0, y: 20, duration: 0.6, delay: 0.2 });
-    gsap.from(".hero-title", { opacity: 0, y: 40, duration: 0.8, delay: 0.4 });
-    gsap.from(".hero-subtitle", {
-      opacity: 0,
-      y: 20,
-      duration: 0.6,
-      delay: 0.8,
-    });
-    gsap.from(".hero-cta", { opacity: 0, y: 20, duration: 0.6, delay: 1 });
-    gsap.from(".stat", {
-      opacity: 0,
-      scale: 0.8,
-      duration: 0.6,
-      stagger: 0.1,
-      delay: 1.2,
-    });
-
-    // Projects animation
-    gsap.utils.toArray(".project-brutal").forEach((project: any, i) => {
-      gsap.from(project, {
-        scrollTrigger: {
-          trigger: project,
-          start: "top 80%",
-        },
-        opacity: 0,
-        x: -50,
-        duration: 0.6,
-        delay: i * 0.1,
-      });
-    });
-
-    // Experience animation
-    gsap.utils.toArray(".experience-item").forEach((item: any, i) => {
-      gsap.from(item, {
-        scrollTrigger: {
-          trigger: item,
-          start: "top 80%",
-        },
-        opacity: 0,
-        x: -50,
-        duration: 0.6,
-        delay: i * 0.2,
-      });
-    });
-
-    // Stack animation
-    gsap.utils.toArray(".stack-category").forEach((category: any, i) => {
-      gsap.from(category, {
-        scrollTrigger: {
-          trigger: category,
-          start: "top 80%",
-        },
-        opacity: 0,
-        y: 30,
-        duration: 0.5,
-        delay: i * 0.1,
-      });
-    });
-  }
-
-  // Scroll-based mesh rotation
-  window.addEventListener("scroll", () => {
-    const scrollPercent =
-      window.scrollY /
-      (document.documentElement.scrollHeight - window.innerHeight);
-    mesh.rotation.z = scrollPercent * Math.PI * 2;
-  });
 </script>
 
 <style>
