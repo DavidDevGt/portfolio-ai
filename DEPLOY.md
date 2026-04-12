@@ -103,9 +103,19 @@ netlify deploy --prod --dir=dist
    - Select your domain
    - Go to Pages → Connect to Git
    - Select your repository
-   - Set build command: `npm run build`
-   - Set build output directory: `dist`
+   - **Build command:** `npm run build`
+   - **Build output directory:** `dist`
+   - **Leave "Deploy command" empty** (important!)
    - Deploy
+
+### Configuration in Cloudflare Pages Dashboard
+
+If you already have a project connected:
+1. Go to your project settings
+2. Find "Build & Deployments"
+3. Set **Build command:** `npm run build`
+4. Set **Build output:** `dist`
+5. **Remove or leave empty the "Deploy command"** - Pages handles this automatically
 
 ### Via CLI (Manual)
 
@@ -117,7 +127,7 @@ npm run build
 npx wrangler pages deploy dist
 ```
 
-**Note:** Cloudflare Pages automatically handles routing for static sites. No additional configuration needed.
+**Important:** Do NOT use `npx wrangler deploy` for Pages - that's for Workers, not Pages.
 
 ---
 

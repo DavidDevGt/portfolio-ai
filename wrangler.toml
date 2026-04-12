@@ -1,9 +1,7 @@
 name = "portfolio-ai"
 compatibility_date = "2024-12-16"
 
-# Cloudflare Pages configuration
-[env.production]
-name = "portfolio-ai-production"
-routes = [
-  { pattern = "davidwebgt.com/*", zone_name = "davidwebgt.com" }
-]
+# Cloudflare Pages - Static Assets
+[assets]
+directory = "./dist"
+binding = "ASSETS"
