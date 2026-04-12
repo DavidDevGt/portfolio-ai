@@ -288,12 +288,12 @@ const experience = [
       <h2 class="section-title">WORK</h2>
     </div>
     <div class="projects-brutal">
-      {
-        projects.map((project, idx) => (
-          <article class="project-brutal">
-            <div class="project-number">
-              [{String(idx + 1).padStart(2, "0")}]
-            </div>
+       {
+         projects.map((project, idx) => (
+           <article class="project-brutal" data-project-id={`project_${idx + 1}`} data-project-name={project.title}>
+             <div class="project-number">
+               [{String(idx + 1).padStart(2, "0")}]
+             </div>
             <div class="project-main">
               <div class="project-header">
                 <h3 class="project-title">{project.title}</h3>
@@ -410,14 +410,37 @@ const experience = [
 <script>
   import { ThreeScene } from '../scripts/three-scene';
   import { GSAPAnimations } from '../scripts/gsap-animations';
+  import { initializeAnalytics } from '../scripts/analytics';
+  import { mapAnalyticsToUmami, UmamiBatcher, logUmamiDetails, checkUmamiHealth } from '../scripts/analytics-umami';
 
   let threeScene: ThreeScene | null = null;
   let gsapAnimations: GSAPAnimations | null = null;
+  let analytics: any = null;
+  let umamiBatcher: any = null;
 
   // Initialize everything when DOM is ready
   if (typeof window !== "undefined") {
     const initAll = async () => {
       try {
+        // Initialize Umami Batcher first (antes de analytics)
+        umamiBatcher = new UmamiBatcher();
+        
+        // Initialize Analytics
+        const { Analytics } = await import('../scripts/analytics');
+        analytics = new Analytics(true);
+        analytics.trackPageView(window.location.pathname);
+        
+        // Log Umami status
+        setTimeout(() => {
+          const health = checkUmamiHealth();
+          if (health.loaded) {
+            console.log('✅ [Umami] Cloud Analytics Connected');
+            logUmamiDetails();
+          } else {
+            console.warn('⚠️ [Umami] Script still loading...');
+          }
+        }, 2000);
+        
         // Initialize GSAP animations
         gsapAnimations = new GSAPAnimations();
         gsapAnimations.init();
@@ -427,9 +450,210 @@ const experience = [
           canvasId: 'webgl-canvas'
         });
         await threeScene.init();
+
+        // Setup analytics event listeners
+        setupAnalyticsTracking(analytics);
+        setupScrollTracking(analytics);
+        setupProjectTracking(analytics);
+        setupNavigationTracking(analytics);
+        setupSectionTracking(analytics);
       } catch (error) {
-        console.warn("Failed to initialize animations:", error);
+        console.warn("Failed to initialize:", error);
       }
+    };
+
+    /**
+      * Setup tracking para clicks generales
+      */
+    const setupAnalyticsTracking = (ana: any) => {
+      document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        
+        // Track CTA buttons
+        if (target.classList.contains('btn-brutal') || target.classList.contains('btn-primary')) {
+          const ctaText = target.textContent?.trim() || 'button_click';
+          ana.trackCTA(ctaText, 'click');
+          
+          // Send to Umami
+          const event = ana.getEvents()?.find((ev: any) => ev.type === 'cta_interaction');
+          if (event && umamiBatcher) {
+            umamiBatcher.addEvent(event);
+          }
+        }
+
+        // Track external links
+        if (target.tagName === 'A') {
+          const href = (target as HTMLAnchorElement).href;
+          if (href && !href.includes(window.location.hostname)) {
+            ana.trackExternalLink(href, target.textContent?.trim() || 'link');
+            
+            // Send to Umami
+            const event = ana.getEvents()?.find((ev: any) => ev.type === 'external_link');
+            if (event && umamiBatcher) {
+              umamiBatcher.addEvent(event);
+            }
+          }
+        }
+
+        // Track general clicks for debugging
+        if (target.id) {
+          ana.trackClick(target, 'element_click');
+        }
+      }, true);
+    };
+
+    /**
+      * Setup scroll depth tracking
+      */
+    const setupScrollTracking = (ana: any) => {
+      let scrollTimeout: NodeJS.Timeout;
+      
+      window.addEventListener('scroll', () => {
+        clearTimeout(scrollTimeout);
+        
+        // Calculate scroll depth percentage
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        const scrollTop = window.scrollY;
+        
+        const scrollDepth = Math.round(
+          ((scrollTop + windowHeight) / documentHeight) * 100
+        );
+        
+        ana.trackScrollDepth(scrollDepth);
+        
+        // Send to Umami on milestone
+        if (scrollDepth === 25 || scrollDepth === 50 || scrollDepth === 75 || scrollDepth === 100) {
+          if (typeof window.umami !== 'undefined') {
+            window.umami.track('scroll_depth', { depth: scrollDepth, percentage: `${scrollDepth}%` });
+          }
+        }
+        
+        // Debounce logging
+        scrollTimeout = setTimeout(() => {
+          console.log(`📊 Scroll Depth: ${scrollDepth}%`, {
+            scrollTop,
+            windowHeight,
+            documentHeight,
+          });
+        }, 1000);
+      }, { passive: true });
+    };
+
+    /**
+      * Setup project click tracking
+      */
+    const setupProjectTracking = (ana: any) => {
+      const projectCards = document.querySelectorAll('[data-project-id]');
+      
+      projectCards.forEach((card) => {
+        const projectId = card.getAttribute('data-project-id');
+        const projectName = card.getAttribute('data-project-name');
+        
+        // Track card click
+        card.addEventListener('click', () => {
+          if (projectId && projectName) {
+            ana.trackProjectClick(projectId, projectName, 'card_click');
+            
+            // Send to Umami
+            if (typeof window.umami !== 'undefined') {
+              window.umami.track('project_click', {
+                project_id: projectId,
+                project_name: projectName,
+                action: 'card_click'
+              });
+            }
+            
+            console.log(`🎯 Project Clicked: ${projectName} (${projectId})`);
+          }
+        });
+
+        // Track project link click
+        const projectLink = card.querySelector('.project-link');
+        if (projectLink) {
+          projectLink.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (projectId && projectName) {
+              ana.trackProjectClick(projectId, projectName, 'view_live_click');
+              const href = (projectLink as HTMLAnchorElement).href;
+              ana.trackExternalLink(href, `${projectName}_view_live`);
+              
+              // Send to Umami
+              if (typeof window.umami !== 'undefined') {
+                window.umami.track('project_click', {
+                  project_id: projectId,
+                  project_name: projectName,
+                  action: 'view_live_click'
+                });
+                window.umami.track('outbound_link', {
+                  url: href,
+                  domain: new URL(href).hostname,
+                  label: `${projectName}_view_live`
+                });
+              }
+              
+              console.log(`🔗 Project Link Clicked: ${projectName} → ${href}`);
+            }
+          });
+        }
+      });
+    };
+
+    /**
+      * Setup navigation link tracking
+      */
+    const setupNavigationTracking = (ana: any) => {
+      const navLinks = document.querySelectorAll('.nav-link');
+      
+      navLinks.forEach((link) => {
+        link.addEventListener('click', () => {
+          const href = (link as HTMLAnchorElement).href;
+          const sectionName = link.textContent?.trim() || 'navigation';
+          ana.trackEvent('navigation', 'click', sectionName, { href });
+          
+          // Send to Umami
+          if (typeof window.umami !== 'undefined') {
+            window.umami.track('navigation', {
+              section: sectionName,
+              url: href
+            });
+          }
+          
+          console.log(`🧭 Navigation: ${sectionName}`);
+        });
+      });
+    };
+
+    /**
+      * Setup section tracking (Intersection Observer)
+      */
+    const setupSectionTracking = (ana: any) => {
+      const sections = document.querySelectorAll('[id^="section-"], #work, #stack, #experience, #contact');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const sectionId = (entry.target as HTMLElement).id;
+            const sectionTitle = (entry.target as HTMLElement).querySelector('h2')?.textContent?.trim();
+            
+            if (sectionId) {
+              ana.trackSectionView(sectionId);
+              
+              // Send to Umami
+              if (typeof window.umami !== 'undefined') {
+                window.umami.track('section_view', {
+                  section_id: sectionId,
+                  section_name: sectionTitle || sectionId
+                });
+              }
+              
+              console.log(`👁️ Section Viewed: ${sectionTitle} (#${sectionId})`);
+            }
+          }
+        });
+      }, { threshold: 0.3 });
+
+      sections.forEach((section) => observer.observe(section));
     };
 
     if (document.readyState === "loading") {
@@ -437,10 +661,6 @@ const experience = [
     } else {
       initAll();
     }
-
-
-
-
   }
 </script>
 
