@@ -94,6 +94,33 @@ netlify deploy --prod --dir=dist
 
 ---
 
+## Option 6: Deploy to Cloudflare Pages (Recommended)
+
+### Via GitHub (Recommended - Automated)
+
+1. Connect your GitHub repository to Cloudflare Pages:
+   - Go to [Cloudflare Dashboard](https://dash.cloudflare.com/)
+   - Select your domain
+   - Go to Pages → Connect to Git
+   - Select your repository
+   - Set build command: `npm run build`
+   - Set build output directory: `dist`
+   - Deploy
+
+### Via CLI (Manual)
+
+```bash
+# Build first
+npm run build
+
+# Deploy to Pages
+npx wrangler pages deploy dist
+```
+
+**Note:** Cloudflare Pages automatically handles routing for static sites. No additional configuration needed.
+
+---
+
 ## Production Checklist
 
 - [ ] Set custom domain
