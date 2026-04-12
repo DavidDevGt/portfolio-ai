@@ -42,7 +42,7 @@ docker run -d -p 3000:80 --name portfolio portfolio-ai
 
 ---
 
-## Option 3: Deploy to Railway (Recomendado)
+## Option 3: Deploy to Railway (Recommended)
 
 ```bash
 # Install Railway CLI
@@ -58,7 +58,7 @@ railway init
 railway up
 ```
 
-### Railway con Docker
+### Railway with Docker
 
 ```bash
 # Create project from Docker Compose
@@ -104,7 +104,7 @@ netlify deploy --prod --dir=dist
 
 ## Environment Variables
 
-This portfolio no requiere variables de entorno en producción.
+This portfolio does not require environment variables in production.
 
 ---
 

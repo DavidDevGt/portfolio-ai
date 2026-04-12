@@ -9,7 +9,7 @@ interface Props {
 
 const {
   title = "David Vargas — AI Systems Engineer | Self-Hosted AI & GPU Optimization",
-  description = "AI Systems Engineer from Guatemala specializing in self-hosted AI systems, GPU optimization, and production ML infrastructure. Building Kurai-Transcribe, KuraiMusik, and KurAI2Video - zero-cost AI solutions that scale.",
+  description = "Hire David Vargas, AI Systems Engineer from Guatemala with 3+ years experience in self-hosted AI, GPU optimization, and production ML infrastructure. Expert in building scalable AI systems like Kurai-Transcribe, KuraiMusik, and KurAI2Video. Available for consulting and development projects.",
   url = Astro.url
 } = Astro.props;
 
@@ -33,23 +33,49 @@ const personSchema = {
     "https://github.com/DavidDevGt",
     "https://www.linkedin.com/in/jdavidvl/"
   ],
+  "hasOccupation": {
+    "@type": "Occupation",
+    "name": "AI Systems Engineer",
+    "occupationLocation": {
+      "@type": "Country",
+      "name": "Guatemala"
+    },
+    "skills": "Self-hosted AI, GPU Optimization, ML Infrastructure, Production ML, Model Deployment",
+    "experienceRequirements": "3+ years in AI/ML systems development"
+  },
   "knowsAbout": [
     "AI Systems Engineering",
     "Machine Learning Infrastructure",
-    "Self-Hosted AI",
+    "Self-Hosted AI Solutions",
+    "GPU Optimization",
+    "Production ML Deployment",
     "Faster-Whisper",
     "Speech Recognition",
     "Natural Language Processing",
-    "Kubernetes",
-    "MLOps",
-    "CUDA",
-    "GPU Optimization",
-    "Python",
-    "Go",
-    "FastAPI",
-    "Liquidsoap",
+    "Kubernetes Orchestration",
+    "MLOps Platforms",
+    "CUDA Programming",
+    "PyTorch Frameworks",
+    "TensorFlow Production",
+    "FastAPI Development",
+    "Go Programming",
+    "Liquidsoap Audio Streaming",
     "Real-time AI Systems",
-    "Distributed Systems"
+    "Distributed Computing",
+    "Containerization",
+    "CI/CD Pipelines",
+    "Automated Testing",
+    "Selenium WebDriver",
+    "Playwright Automation",
+    "Cypress Testing",
+    "Fintech Development",
+    "ERP Systems",
+    "Full Stack Development",
+    "Android Development",
+    "Kotlin Programming",
+    "PostgreSQL Databases",
+    "Redis Caching",
+    "Docker Containers"
   ]
 };
 
@@ -96,6 +122,30 @@ const faqSchema = {
         "@type": "Answer",
         "text": "I work with Selenium WebDriver and Playwright for UI automation, Cypress for end-to-end testing, and tools like Jest and Pytest for unit testing. For API testing, I use Postman and RestAssured. My CI/CD experience includes GitHub Actions, Jenkins, and GitLab CI with automated testing pipelines."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "What makes you qualified for AI systems engineering roles?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "With 3+ years of experience in AI/ML infrastructure, I specialize in building production-ready systems that scale. My expertise includes self-hosted AI deployment, GPU optimization with CUDA, MLOps platforms, and real-time AI systems. I've successfully delivered projects like Kurai-Transcribe processing millions of minutes monthly and KurAI2Video saving $35K+ in cloud API costs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle GPU memory management in AI applications?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I implement advanced GPU memory management techniques including semaphore-based VRAM allocation, dynamic CPU↔GPU offloading, and memory pooling to prevent OOM errors. This ensures stable performance in production environments, especially for large models like Wan 2.1 T2V-1.3B used in video generation systems."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are your strengths in full-stack development?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I excel in full-stack development with strong backend skills in Python, FastAPI, and Go, combined with frontend experience in modern JavaScript frameworks. My approach emphasizes scalable architecture, robust API design, and seamless integration between frontend and backend systems, as demonstrated in my fintech and ERP projects."
+      }
     }
   ]
 };
@@ -122,7 +172,7 @@ const websiteSchema = {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="author" content="David Vargas" />
-    <meta name="keywords" content="AI Systems Engineer, ML Infrastructure, Self-Hosted AI, Faster-Whisper, Kubernetes, MLOps, GPU Optimization, Real-time AI, Guatemala, Machine Learning Pipeline" />
+    <meta name="keywords" content="AI Systems Engineer, hire AI engineer, ML infrastructure consultant, self-hosted AI expert, GPU optimization specialist, production ML engineer, Kurai-Transcribe, KuraiMusik, KurAI2Video, Faster-Whisper, Kubernetes, MLOps, CUDA, PyTorch, TensorFlow, real-time AI systems, Guatemala developer, machine learning pipeline, AI consulting" />
     <meta name="robots" content="index, follow" />
     <meta name="language" content="Spanish" />
     <meta name="geo.region" content="GT" />
