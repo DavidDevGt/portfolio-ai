@@ -25,20 +25,7 @@ export const projects: Project[] = [
     ],
     date: '2026-01'
   },
-  {
-    slug: 'kuraimusik',
-    title: 'KuraiMusik',
-    description: 'Autonomous AI radio broadcasting 24/7 with zero human intervention. Dynamic buffer system with ACE-Step 1.5 engine and circuit breaker pattern for resilience.',
-    longDescription: 'Designed and deployed an autonomous AI radio station that runs 24/7 without human intervention. Features a dynamic buffer system powered by ACE-Step 1.5 for AI music generation, circuit breaker pattern for fault tolerance, and professional DSP with Liquidsoap including AGC, crossfades, and real-time ID3 metadata management.',
-    tags: ['FastAPI', 'Celery', 'Liquidsoap', 'Redis'],
-    category: 'ml',
-    metrics: { label: 'Uptime', value: '100%' },
-    links: [
-      { label: 'Live Radio', url: 'https://music.kuraitachi.com/' },
-      { label: 'GitHub', url: 'https://github.com/DavidDevGt' }
-    ],
-    date: '2026-02'
-  },
+
   {
     slug: 'ai-infrastructure',
     title: 'AI Infrastructure Orchestration',
@@ -64,6 +51,43 @@ export const projects: Project[] = [
       { label: 'GitHub', url: 'https://github.com/DavidDevGt' }
     ],
     date: '2025-03'
+  },
+  {
+    slug: 'kuraimusik',
+    title: 'KuraiMusik',
+    description: 'Autonomous content generation system running 24/7 with zero human intervention. Dynamic content buffer system powered by advanced generative AI and circuit breaker patterns for resilience.',
+    longDescription: 'Autonomous content generation system designed to run 24/7 without human intervention. Features a dynamic content buffer system powered by advanced generative AI, circuit breaker patterns for fault tolerance, and intelligent content orchestration with real-time metadata management and automated scheduling.',
+    tags: ['FastAPI', 'Celery', 'Redis', 'ACE-Step', 'PostgreSQL'],
+    category: 'ml',
+    metrics: { label: 'Uptime', value: '100%' },
+    links: [
+      { label: 'Live', url: 'https://music.kuraitachi.com/' },
+      { label: 'GitHub', url: 'https://github.com/DavidDevGt' }
+    ],
+    date: '2026-02'
+  },
+  {
+    slug: 'kurai2video',
+    title: 'KurAI2Video',
+    description: 'Enterprise-grade self-hosted video generation platform using state-of-the-art Wan 2.1 T2V-1.3B model. Eliminates cloud API costs with advanced GPU memory management.',
+    longDescription: 'Enterprise-grade self-hosted video generation platform using state-of-the-art Wan 2.1 T2V-1.3B model. Eliminates cloud API costs that charge $0.15-0.40 per second—10,000 videos would cost $15,000-40,000. Advanced GPU memory management with dynamic CPU↔GPU offloading prevents OOM errors. Strict concurrency control ensures one active job at a time for predictable performance. Built-in monitoring dashboard tracks GPU utilization, VRAM usage, and model performance in real-time. Production-ready Docker deployment with automated health checks and failover mechanisms.',
+    tags: ['Wan 2.1 T2V-1.3B', 'PyTorch', 'FastAPI', 'Docker', 'CUDA', 'Prometheus'],
+    category: 'ml',
+    metrics: { label: 'Savings', value: '$35K+' },
+    date: '2026'
+  },
+  {
+    slug: 'daily-journal',
+    title: 'Daily Journal',
+    description: '100% private personal diary app for Android. No accounts, no subscriptions, no trackers. Your entries never leave your device.',
+    longDescription: '100% private personal diary app for Android. No accounts, no subscriptions, no trackers. Your entries never leave your device. Minimalist interface, emotional analysis, dark mode, and works offline. Developed with privacy as the top priority.',
+    tags: ['Kotlin', 'Android', 'Room Database', 'Material Design'],
+    category: 'api',
+    metrics: { label: 'Privacy', value: '100%' },
+    links: [
+      { label: 'Download', url: 'https://journal.davidwebgt.com/' }
+    ],
+    date: '2025'
   }
 ];
 
