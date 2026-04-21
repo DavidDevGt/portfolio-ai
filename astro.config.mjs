@@ -3,9 +3,12 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { visualizer } from 'rollup-plugin-visualizer';
 
+import cloudflare from '@astrojs/cloudflare';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://davidwebgt.com',
+
   integrations: [
     sitemap({
       changefreq: 'weekly',
@@ -19,6 +22,7 @@ export default defineConfig({
       }
     })
   ],
+
   vite: {
     plugins: [
       visualizer({
@@ -31,5 +35,7 @@ export default defineConfig({
     css: {
       preprocessorOptions: {}
     }
-  }
+  },
+
+  adapter: cloudflare()
 });
