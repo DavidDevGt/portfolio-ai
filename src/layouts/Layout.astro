@@ -7,8 +7,8 @@ interface Props {
 }
 
 const {
-  title = "David Vargas — AI Systems Engineer | Self-Hosted AI & GPU Optimization",
-  description = "Hire David Vargas, AI Systems Engineer from Guatemala with 3+ years experience in self-hosted AI, GPU optimization, and production ML infrastructure. Expert in building scalable AI systems like Kurai-Transcribe, KuraiMusik, and KurAI2Video. Available for consulting and development projects.",
+  title = "David Vargas — AI Software Engineer | Self-Hosted AI & GPU Optimization",
+  description = "Hire David Vargas, Senior Software Engineer from Guatemala with 3+ years experience in self-hosted AI, GPU optimization, and production ML infrastructure. Expert in building scalable AI systems like Kurai-Transcribe and KuraiMusik. Available for consulting and development projects.",
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, 'https://davidwebgt.com');
@@ -19,7 +19,7 @@ const personSchema = {
   "name": "David Vargas",
   "givenName": "David",
   "familyName": "Vargas",
-  "jobTitle": "AI Systems Engineer",
+  "jobTitle": "AI Software Engineer",
   "url": "https://davidwebgt.com",
   "description": description,
   "address": {
@@ -33,7 +33,7 @@ const personSchema = {
   ],
   "hasOccupation": {
     "@type": "Occupation",
-    "name": "AI Systems Engineer",
+    "name": "Software Engineer",
     "occupationLocation": {
       "@type": "Country",
       "name": "Guatemala"
@@ -65,10 +65,7 @@ const personSchema = {
     "Selenium WebDriver",
     "Java Automation",
     "Fintech Development",
-    "ERP Systems",
     "Full Stack Development",
-    "Android Development",
-    "Kotlin Programming",
     "PostgreSQL Databases",
     "Redis Caching",
     "Docker Containers"
@@ -108,7 +105,7 @@ const faqSchema = {
        "name": "How do you approach AI integration in business applications?",
        "acceptedAnswer": {
          "@type": "Answer",
-         "text": "I focus on practical AI integration that solves real business problems. Whether it's speech recognition, video generation, or predictive analytics, I build self-hosted solutions that maintain data privacy and give clients complete control. Kurai-Transcribe and KurAI2Video demonstrate how AI can enhance business workflows."
+         "text": "I focus on practical AI integration that solves real business problems. Whether it's speech recognition, audio processing, or generative AI, I build self-hosted solutions that maintain data privacy and give clients complete control. Kurai-Transcribe and KuraiMusik demonstrate how AI can enhance business workflows."
        }
     },
     {
@@ -121,10 +118,10 @@ const faqSchema = {
     },
     {
       "@type": "Question",
-      "name": "What makes you qualified for AI systems engineering roles?",
+      "name": "What makes you qualified for senior software engineering roles?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "With 3+ years of experience in AI/ML infrastructure, I specialize in building production-ready systems that scale. My expertise includes self-hosted AI deployment, GPU optimization with CUDA, MLOps platforms, and real-time AI systems. I've successfully delivered projects like Kurai-Transcribe processing millions of minutes monthly and KurAI2Video saving $35K+ in cloud API costs."
+        "text": "With 3+ years of experience in software development, I specialize in building production-ready systems that scale. My expertise includes full-stack development, API design, and real-time applications. I've successfully delivered projects like Kurai-Transcribe, processing millions of minutes of audio monthly, and KuraiMusik, running 24/7 with zero human intervention."
       }
     },
     {
@@ -132,7 +129,7 @@ const faqSchema = {
       "name": "How do you handle GPU memory management in AI applications?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "I implement advanced GPU memory management techniques including semaphore-based VRAM allocation, dynamic CPU↔GPU offloading, and memory pooling to prevent OOM errors. This ensures stable performance in production environments, especially for large models like Wan 2.1 T2V-1.3B used in video generation systems."
+        "text": "I implement advanced GPU memory management techniques including semaphore-based VRAM allocation, dynamic CPU↔GPU offloading, and memory pooling to prevent OOM errors. This ensures stable performance in production environments, such as Kurai-Transcribe, which processes millions of minutes of audio monthly under strict VRAM constraints."
       }
     },
     {
@@ -149,9 +146,9 @@ const faqSchema = {
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "David Vargas - AI Systems Engineer",
+  "name": "David Vargas - Software Engineer",
   "url": "https://davidwebgt.com",
-  "description": "Portfolio of David Vargas, AI Systems Engineer from Guatemala specializing in self-hosted ML infrastructure and real-time AI systems.",
+  "description": "Portfolio of David Vargas, Senior Software Engineer from Guatemala specializing in self-hosted ML infrastructure and real-time AI systems.",
   "inLanguage": "es-GT",
   "author": {
     "@type": "Person",
@@ -168,7 +165,7 @@ const websiteSchema = {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="author" content="David Vargas" />
-    <meta name="keywords" content="AI Systems Engineer, hire AI engineer, ML infrastructure consultant, self-hosted AI expert, GPU optimization specialist, production ML engineer, Kurai-Transcribe, KurAI2Video, Faster-Whisper, Kubernetes, MLOps, CUDA, PyTorch, TensorFlow, real-time AI systems, Guatemala developer, machine learning pipeline, AI consulting" />
+    <meta name="keywords" content="Senior AI Systems Engineer, Senior Software Engineer, hire AI engineer, ML infrastructure consultant, self-hosted AI expert, GPU optimization specialist, production ML engineer, Kurai-Transcribe, KuraiMusik, Faster-Whisper, Kubernetes, MLOps, CUDA, PyTorch, TensorFlow, real-time AI systems, Guatemala developer, machine learning pipeline, AI consulting" />
     <meta name="robots" content="index, follow" />
     <meta name="language" content="Spanish" />
     <meta name="geo.region" content="GT" />
@@ -189,12 +186,12 @@ const websiteSchema = {
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:site_name" content="David Vargas - AI Systems Engineer" />
+    <meta property="og:site_name" content="David Vargas - Software Engineer" />
     <meta property="og:locale" content="es_GT" />
     <meta property="og:image" content="https://davidwebgt.com/og-image.svg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="David Vargas - AI Systems Engineer from Guatemala specializing in self-hosted ML infrastructure" />
+    <meta property="og:image:alt" content="David Vargas - Software Engineer from Guatemala specializing in self-hosted ML infrastructure" />
     
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />

@@ -1,4 +1,4 @@
-# AI Systems Engineer Portfolio
+# Software Engineer Portfolio
 
 > Brutalist single-page portfolio showcasing AI/ML infrastructure expertise
 
@@ -9,7 +9,7 @@
 
 ## 🎯 Overview
 
-Professional portfolio for **David Vargas**, AI Systems Engineer with 3+ years of experience in fintech, self-hosted AI infrastructure, and GPU-optimized ML systems. Designed to showcase technical expertise and attract AI infrastructure consulting/development opportunities. Features a **brutalist design** with Three.js 3D background, GSAP animations, and comprehensive project demonstrations.
+Professional portfolio for **David Vargas**, Senior Software Engineer with 3+ years of experience in fintech, self-hosted AI infrastructure, and GPU-optimized ML systems. Designed to showcase technical expertise and attract AI infrastructure consulting/development opportunities. Features a **brutalist design** with Three.js 3D background, GSAP animations, and comprehensive project demonstrations.
 
 ### Key Features
 
@@ -109,8 +109,6 @@ portfolio-ai/
 
 1. **Kurai-Transcribe** - Self-hosted transcription API with custom vocabularies
 2. **KuraiMusik** - 24/7 autonomous AI radio station
-3. **KurAI2Video** - Self-hosted video generation system
-4. **Daily Journal** - 100% private, offline-first diary app for Android
 
 ## 🔗 Social Links
 
@@ -122,7 +120,7 @@ portfolio-ai/
 1. **Hero** - Name, role, key metrics (3+ years experience, $0 vendor lock-in, 24/7 autonomous operation)
 2. **About** - AI infrastructure philosophy & achievements
 3. **Experience** - Professional background & key achievements
-4. **Work** - 4 featured projects with detailed descriptions
+4. **Work** - 2 featured projects with detailed descriptions
 5. **Stack** - 4 technical skill categories
 6. **Contact** - Professional contact information & call-to-action
 
@@ -144,9 +142,9 @@ No environment variables needed for basic deployment.
 
 ## 🎯 SEO & Performance
 
-- **Title**: "David Vargas — AI Systems Engineer | Self-Hosted AI & GPU Optimization"
-- **Description**: AI Systems Engineer from Guatemala specializing in self-hosted AI systems, GPU optimization, and production ML infrastructure
-- **Keywords**: AI Systems Engineer, self-hosted AI, GPU optimization, ML infrastructure, MLOps, CUDA, Kubernetes
+- **Title**: "David Vargas — Software Engineer | Self-Hosted AI & GPU Optimization"
+- **Description**: Senior Software Engineer from Guatemala specializing in self-hosted AI systems, GPU optimization, and production ML infrastructure
+- **Keywords**: Software Engineer, self-hosted AI, GPU optimization, ML infrastructure, MLOps, CUDA, Kubernetes
 - **Schema Markup**: Person + FAQPage + WebSite structured data
 - **Analytics**: Umami Cloud (privacy-focused)
 - **Social**: OG image with brutalist design
@@ -196,7 +194,7 @@ This is a personal portfolio. Feel free to use as inspiration, but please don't 
 **Built by**: David Vargas
 **Domain**: davidwebgt.com
 
-**Profile**: AI Systems Engineer (2023-present)
+**Profile**: Software Engineer (2023-present)
 **Experience**: Fintech, self-hosted AI infrastructure, QA automation
-**Projects**: 4 featured project showcases
+**Projects**: 2 featured project showcases
 **Tech Stack**: Astro, TypeScript, Three.js, GSAP

@@ -24,7 +24,7 @@
   <rect x="40" y="40" width="8" height="60" fill="#ff00ff"/>
   
   <!-- Top label -->
-  <text x="80" y="120" class="mono" fill="#ff00ff">[AI SYSTEMS ENGINEER]</text>
+  <text x="80" y="120" class="mono" fill="#ff00ff">[SOFTWARE ENGINEER]</text>
   
   <!-- Main title -->
   <text x="80" y="230" class="text title">DAVID VARGAS</text>
