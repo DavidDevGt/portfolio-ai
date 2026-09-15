@@ -4,13 +4,11 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
-  url?: string;
 }
 
 const {
   title = "David Vargas — AI Systems Engineer | Self-Hosted AI & GPU Optimization",
   description = "Hire David Vargas, AI Systems Engineer from Guatemala with 3+ years experience in self-hosted AI, GPU optimization, and production ML infrastructure. Expert in building scalable AI systems like Kurai-Transcribe, KuraiMusik, and KurAI2Video. Available for consulting and development projects.",
-  url = Astro.url
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, 'https://davidwebgt.com');
@@ -206,12 +204,12 @@ const websiteSchema = {
     
     <link rel="sitemap" href="/sitemap-index.xml" />
     
-    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
-    
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+
     <!-- Umami Cloud Analytics -->
-    <script defer src="https://cloud.umami.is/script.js" data-website-id="15245736-2d0c-4539-8099-16a502ec5c33"></script>
+    <script is:inline defer src="https://cloud.umami.is/script.js" data-website-id="15245736-2d0c-4539-8099-16a502ec5c33"></script>
   </head>
   <body>
     <slot />

@@ -2,12 +2,11 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import Button from '../components/Button.astro';
 ---
 
 <Layout title="404 — Page Not Found">
   <Header />
-  
+
   <main class="not-found-page">
     <div class="content">
       <span class="error-code">
@@ -17,20 +16,16 @@ import Button from '../components/Button.astro';
       </span>
       <h1 class="title">Page Not Found</h1>
       <p class="description">
-        The page you're looking for doesn't exist or has been moved. 
+        The page you're looking for doesn't exist or has been moved.
         Maybe it's in another dimension? ¯\_(ツ)_/¯
       </p>
       <div class="cta">
-        <Button href="/" variant="primary">
-          Go Home
-        </Button>
-        <Button href="/#work" variant="ghost">
-          View Projects
-        </Button>
+        <a href="/" class="btn-brutal btn-primary">Go Home</a>
+        <a href="/#work" class="btn-brutal">View Projects</a>
       </div>
     </div>
   </main>
-  
+
   <Footer />
 </Layout>
 
@@ -57,10 +52,6 @@ import Button from '../components/Button.astro';
     justify-content: center;
     gap: 0.25em;
     margin-bottom: 1.5rem;
-  }
-
-  .bracket {
-    color: var(--color-purple);
   }
 
   .code {

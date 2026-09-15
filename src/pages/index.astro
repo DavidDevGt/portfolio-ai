@@ -1,5 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 
 const projects = [
   {
@@ -135,20 +137,7 @@ const experience = [
 
 
 
-  <!-- Navigation -->
-  <header>
-    <nav class="nav-brutal" aria-label="Navegación principal">
-      <div class="nav-inner">
-        <div class="logo-brutal">&lt;DV/&gt;</div>
-        <div class="nav-links">
-          <a href="#experience" class="nav-link">EXPERIENCE</a>
-          <a href="#work" class="nav-link">WORK</a>
-          <a href="#stack" class="nav-link">STACK</a>
-          <a href="#contact" class="nav-link">CONTACT</a>
-        </div>
-      </div>
-    </nav>
-  </header>
+  <Header />
 
   <main>
     <!-- Hero Section -->
@@ -258,7 +247,7 @@ const experience = [
     </div>
     <div class="experience-timeline">
       {
-        experience.map((exp, idx) => (
+        experience.map((exp) => (
           <div class="experience-item">
             <div class="experience-header">
               <h3 class="experience-role">{exp.role}</h3>
@@ -398,20 +387,12 @@ const experience = [
   <!-- Footer -->
 </Layout>
 
-<footer class="footer-brutal">
-  <div class="footer-content">
-    <div class="footer-left">
-      <span class="bracket">[</span>2026<span class="bracket">]</span> DAVID VARGAS
-    </div>
-    <div class="footer-right">AI SYSTEMS ENGINEER</div>
-  </div>
-</footer>
+<Footer />
 
 <script>
   import { ThreeScene } from '../scripts/three-scene';
   import { GSAPAnimations } from '../scripts/gsap-animations';
-  import { initializeAnalytics } from '../scripts/analytics';
-  import { mapAnalyticsToUmami, UmamiBatcher, logUmamiDetails, checkUmamiHealth } from '../scripts/analytics-umami';
+  import { UmamiBatcher, logUmamiDetails, checkUmamiHealth } from '../scripts/analytics-umami';
 
   let threeScene: ThreeScene | null = null;
   let gsapAnimations: GSAPAnimations | null = null;
@@ -446,7 +427,7 @@ const experience = [
         gsapAnimations.init();
 
         // Initialize Three.js scene
-        threeScene = new (ThreeScene as any)({
+        threeScene = new ThreeScene({
           canvasId: 'webgl-canvas'
         });
         await threeScene.init();
@@ -675,54 +656,6 @@ const experience = [
     pointer-events: none;
   }
 
-  /* Navigation */
-  .nav-brutal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background: var(--color-bg);
-    border-bottom: var(--border-thick) solid var(--color-accent);
-  }
-
-  .nav-inner {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: var(--space-sm) var(--space-md);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .logo-brutal {
-    font-family: var(--font-body);
-    font-size: var(--text-xl);
-    font-weight: 900;
-    color: var(--color-accent);
-  }
-
-  .nav-links {
-    display: flex;
-    gap: var(--space-md);
-  }
-
-  .nav-link {
-    font-family: var(--font-header);
-    font-size: var(--text-sm);
-    font-weight: 900;
-    color: var(--color-text);
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border: var(--border-medium) solid transparent;
-    transition: all 0.15s ease;
-  }
-
-  .nav-link:hover {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-  }
-
   /* Hero */
   .hero-brutal {
     min-height: 100vh;
@@ -746,11 +679,6 @@ const experience = [
     margin-bottom: var(--space-sm);
   }
 
-  .bracket {
-    color: var(--color-accent-2);
-    font-weight: 900;
-  }
-
   .hero-title {
     font-size: clamp(3rem, 10vw, var(--text-5xl));
     line-height: 0.85;
@@ -771,41 +699,6 @@ const experience = [
     display: flex;
     gap: var(--space-sm);
     flex-wrap: wrap;
-  }
-
-  .btn-brutal {
-    font-family: var(--font-header);
-    font-size: var(--text-sm);
-    font-weight: 900;
-    padding: 1rem 2rem;
-    border: var(--border-thick) solid var(--color-text);
-    background: transparent;
-    color: var(--color-text);
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.1s ease;
-    text-transform: uppercase;
-    display: inline-block;
-  }
-
-  .btn-brutal:hover {
-    transform: translate(-4px, -4px);
-    box-shadow: 4px 4px 0 var(--color-accent);
-  }
-
-  .btn-brutal:active {
-    transform: translate(0, 0);
-    box-shadow: none;
-  }
-
-  .btn-primary {
-    background: var(--color-accent);
-    color: var(--color-bg);
-    border-color: var(--color-accent);
-  }
-
-  .btn-primary:hover {
-    box-shadow: 4px 4px 0 var(--color-text);
   }
 
   .hero-side {
@@ -1175,36 +1068,10 @@ const experience = [
     font-weight: 900;
   }
 
-  /* Footer */
-  .footer-brutal {
-    border-top: var(--border-thick) solid var(--color-accent);
-    padding: var(--space-md);
-    margin-top: var(--space-2xl);
-  }
-
-  .footer-content {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: var(--font-body);
-    font-size: var(--text-sm);
-    font-weight: 700;
-  }
-
   /* ========================================
      TABLET & MEDIUM SCREENS (≤ 1024px)
      ======================================== */
   @media (max-width: 1024px) {
-    .nav-inner {
-      padding: var(--space-sm) var(--space-md);
-    }
-    
-    .nav-links {
-      gap: var(--space-md);
-    }
-    
     .hero-brutal {
       padding: var(--space-xl) var(--space-md);
       gap: var(--space-lg);
@@ -1242,16 +1109,6 @@ const experience = [
       min-width: 0;
     }
 
-    .nav-links {
-      gap: var(--space-sm);
-    }
-
-    .nav-link {
-      padding: 0.5rem 0.75rem;
-      font-size: 0.7rem;
-      border-width: var(--border-medium);
-    }
-
     .project-brutal {
       flex-direction: column;
       gap: var(--space-md);
@@ -1260,12 +1117,6 @@ const experience = [
 
     .project-number {
       font-size: var(--text-xl);
-    }
-
-    .footer-content {
-      flex-direction: column;
-      gap: var(--space-sm);
-      text-align: center;
     }
 
     .experience-item {
@@ -1305,29 +1156,6 @@ const experience = [
 
     .section-title {
       font-size: clamp(1.5rem, 5vw, 2.5rem);
-    }
-
-    .nav-brutal {
-      border-bottom-width: var(--border-medium);
-    }
-
-    .nav-inner {
-      padding: var(--space-sm) var(--space-sm);
-      gap: var(--space-sm);
-    }
-
-    .logo-brutal {
-      font-size: var(--text-lg);
-    }
-
-    .nav-links {
-      gap: 0.5rem;
-    }
-
-    .nav-link {
-      padding: 0.35rem 0.5rem;
-      font-size: 0.65rem;
-      border: var(--border-thin) solid transparent;
     }
 
     .hero-label {
@@ -1434,16 +1262,6 @@ const experience = [
       font-size: var(--text-xl);
     }
 
-    .footer-brutal {
-      border-top-width: var(--border-medium);
-      padding: var(--space-sm);
-      margin-top: var(--space-lg);
-    }
-
-    .footer-content {
-      font-size: 0.7rem;
-    }
-
     .stack-category {
       border-width: var(--border-medium);
       padding: var(--space-sm);
@@ -1475,36 +1293,6 @@ const experience = [
       --space-lg: 1.5rem;
       --space-md: 1rem;
       --text-lg: 1rem;
-    }
-
-    .nav-brutal {
-      border-bottom-width: 2px;
-    }
-
-    .nav-inner {
-      padding: 0.6rem 0.75rem;
-      flex-wrap: wrap;
-    }
-
-    .logo-brutal {
-      font-size: var(--text-base);
-      order: 1;
-    }
-
-    .nav-links {
-      gap: 0.25rem;
-      order: 3;
-      width: 100%;
-      margin-top: 0.5rem;
-      flex-wrap: wrap;
-    }
-
-    .nav-link {
-      padding: 0.3rem 0.4rem;
-      font-size: 0.6rem;
-      flex: 1 1 auto;
-      min-width: 60px;
-      text-align: center;
     }
 
     .hero-brutal {
@@ -1758,16 +1546,6 @@ const experience = [
       font-size: 1.25rem;
     }
 
-    .footer-brutal {
-      border-top-width: 2px;
-      padding: var(--space-sm);
-      margin-top: var(--space-lg);
-    }
-
-    .footer-content {
-      font-size: 0.7rem;
-      gap: 0.5rem;
-    }
   }
 
   /* ========================================
@@ -1779,34 +1557,6 @@ const experience = [
       --space-sm: 0.75rem;
       --space-md: 0.85rem;
       --space-lg: 1.25rem;
-    }
-
-    .nav-brutal {
-      border-bottom-width: 2px;
-    }
-
-    .nav-inner {
-      padding: 0.5rem;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .logo-brutal {
-      font-size: 0.9rem;
-      width: 100%;
-      text-align: center;
-    }
-
-    .nav-links {
-      width: 100%;
-      gap: 0.15rem;
-      margin-top: 0;
-    }
-
-    .nav-link {
-      padding: 0.25rem 0.3rem;
-      font-size: 0.55rem;
-      min-width: 50px;
     }
 
     .hero-brutal {
@@ -1958,10 +1708,6 @@ const experience = [
     .link-arrow {
       font-size: 1.1rem;
     }
-
-    .footer-content {
-      font-size: 0.65rem;
-    }
   }
 
   /* ========================================
@@ -1974,11 +1720,6 @@ const experience = [
 
     .section-title {
       font-size: clamp(0.9rem, 3vw, 1rem);
-    }
-
-    .nav-link {
-      font-size: 0.5rem;
-      padding: 0.2rem 0.25rem;
     }
 
     .hero-brutal {

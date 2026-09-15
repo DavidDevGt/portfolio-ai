@@ -23,7 +23,7 @@ docker-compose down
 ```
 
 ### Access
-- http://localhost:3000
+- http://localhost:12420
 
 ---
 
@@ -34,10 +34,10 @@ docker-compose down
 docker build -t portfolio-ai .
 
 # Run container
-docker run -d -p 3000:80 --name portfolio portfolio-ai
+docker run -d -p 12420:12420 --name portfolio portfolio-ai
 
 # Access
-# http://localhost:3000
+# http://localhost:12420
 ```
 
 ---
@@ -161,5 +161,5 @@ npm run preview
 docker build -t portfolio .
 
 # Docker run
-docker run -p 3000:80 portfolio
+docker run -p 12420:12420 portfolio
 ```

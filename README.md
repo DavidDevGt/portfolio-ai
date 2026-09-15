@@ -9,7 +9,7 @@
 
 ## 🎯 Overview
 
-Professional portfolio for **David Vargas**, Software Engineer with 3+ years of experience in fintech, ERP systems, and AI development. Designed to showcase technical expertise and attract software development opportunities. Features a **brutalist design** with Three.js 3D background, GSAP animations, and comprehensive project demonstrations.
+Professional portfolio for **David Vargas**, AI Systems Engineer with 3+ years of experience in fintech, self-hosted AI infrastructure, and GPU-optimized ML systems. Designed to showcase technical expertise and attract AI infrastructure consulting/development opportunities. Features a **brutalist design** with Three.js 3D background, GSAP animations, and comprehensive project demonstrations.
 
 ### Key Features
 
@@ -50,11 +50,15 @@ portfolio-ai/
 │   ├── layouts/
 │   │   └── Layout.astro          # Base layout with SEO & analytics
 │   ├── components/
-│   │   ├── Header.astro
-│   │   ├── Footer.astro
-│   │   └── Button.astro
+│   │   ├── Header.astro          # Shared nav (home + 404)
+│   │   └── Footer.astro          # Shared footer (home + 404)
+│   ├── scripts/
+│   │   ├── three-scene.ts        # Three.js wireframe background
+│   │   ├── gsap-animations.ts    # Scroll-triggered animations
+│   │   ├── analytics.ts          # Local event tracking
+│   │   └── analytics-umami.ts    # Umami Cloud integration
 │   └── styles/
-│       └── global.css            # Brutalist CSS variables
+│       └── global.css            # Brutalist CSS variables & shared UI
 ├── public/
 │   ├── robots.txt
 │   ├── manifest.json
@@ -106,6 +110,7 @@ portfolio-ai/
 1. **Kurai-Transcribe** - Self-hosted transcription API with custom vocabularies
 2. **KuraiMusik** - 24/7 autonomous AI radio station
 3. **KurAI2Video** - Self-hosted video generation system
+4. **Daily Journal** - 100% private, offline-first diary app for Android
 
 ## 🔗 Social Links
 
@@ -114,22 +119,24 @@ portfolio-ai/
 
 ## 📝 Content Sections
 
-1. **Hero** - Name, role, key metrics (8+ systems, 50M+ req/day, 99.95% uptime)
+1. **Hero** - Name, role, key metrics (3+ years experience, $0 vendor lock-in, 24/7 autonomous operation)
 2. **About** - AI infrastructure philosophy & achievements
 3. **Experience** - Professional background & key achievements
-4. **Work** - 8 featured projects with detailed descriptions
-5. **Stack** - 6 technical skill categories (20+ technologies)
-6. **Expertise** - 4 specialized areas (GPU optimization, self-hosted AI, MLOps, real-time systems)
-7. **Contact** - Professional contact information & call-to-action
+4. **Work** - 4 featured projects with detailed descriptions
+5. **Stack** - 4 technical skill categories
+6. **Contact** - Professional contact information & call-to-action
 
 ## 🌐 Deployment
 
 Build output is in `dist/` directory. Deploy to:
 
+- **Cloudflare Pages** (primary target, see `wrangler.toml`): Connect repo
+- **Docker / nginx**: `docker compose up --build` (see `Dockerfile`, `nginx.conf`)
 - **Netlify**: `netlify deploy --prod`
 - **Vercel**: `vercel --prod`
-- **Cloudflare Pages**: Connect repo
 - **Any static host**: Upload `dist/` folder
+
+Full step-by-step instructions: [DEPLOY.md](./DEPLOY.md)
 
 ### Environment Variables
 
@@ -137,11 +144,11 @@ No environment variables needed for basic deployment.
 
 ## 🎯 SEO & Performance
 
-- **Title**: "David Vargas — Software Engineer | Fintech, ERP & AI Development"
-- **Description**: Software Engineer from Guatemala with experience in fintech, ERP systems, and AI development. Building robust software solutions for modern business challenges
-- **Keywords**: Software Engineer, Fintech, ERP, AI Development, React, Python, PostgreSQL, Full Stack
+- **Title**: "David Vargas — AI Systems Engineer | Self-Hosted AI & GPU Optimization"
+- **Description**: AI Systems Engineer from Guatemala specializing in self-hosted AI systems, GPU optimization, and production ML infrastructure
+- **Keywords**: AI Systems Engineer, self-hosted AI, GPU optimization, ML infrastructure, MLOps, CUDA, Kubernetes
 - **Schema Markup**: Person + FAQPage + WebSite structured data
-- **Analytics**: Plausible (privacy-focused)
+- **Analytics**: Umami Cloud (privacy-focused)
 - **Social**: OG image with brutalist design
 - Schema: Person markup with AI/ML expertise
 
@@ -184,26 +191,12 @@ This is a personal portfolio. Feel free to use as inspiration, but please don't 
 - Icons: Custom SVG
 - 3D: Three.js community
 
-## 📚 Documentation
-
-For detailed design decisions and implementation notes, see:
-- [BRUTALIST-PORTFOLIO.md](./BRUTALIST-PORTFOLIO.md) - Full design documentation
-- [SEO-STRATEGY.md](./SEO-STRATEGY.md) - SEO implementation details
-- [SEO-CHECKLIST.md](./SEO-CHECKLIST.md) - Optimization checklist
-
 ---
 
 **Built by**: David Vargas
 **Domain**: davidwebgt.com
-**Last Updated**: 2026-04-03
 
-**Profile**: Software Engineer (2023-present)
-**Experience**: Fintech, ERP, AI Development
-**Projects**: 3 core systems + multiple implementations
-**Tech Stack**: Full-stack development, modern frameworks
-
-**Sections**: 7 comprehensive sections
-**Projects**: 8 detailed project showcases
-**Skills**: 20+ technologies across 6 categories
-**Experience**: 3 professional roles with achievements
-**Expertise**: 4 specialized technical areas
+**Profile**: AI Systems Engineer (2023-present)
+**Experience**: Fintech, self-hosted AI infrastructure, QA automation
+**Projects**: 4 featured project showcases
+**Tech Stack**: Astro, TypeScript, Three.js, GSAP

@@ -17,11 +17,11 @@ export interface ThreeSceneConfig {
 }
 
 export class ThreeScene {
-  private scene: THREE.Scene;
-  private camera: THREE.PerspectiveCamera;
-  private renderer: THREE.WebGLRenderer;
-  private mesh: THREE.Mesh;
-  private canvas: HTMLCanvasElement;
+  private scene!: THREE.Scene;
+  private camera!: THREE.PerspectiveCamera;
+  private renderer!: THREE.WebGLRenderer;
+  private mesh!: THREE.Mesh;
+  private canvas!: HTMLCanvasElement;
   private animationId: number | null = null;
   private config: Required<ThreeSceneConfig>;
 
@@ -148,7 +148,8 @@ export class ThreeScene {
       this.cleanup();
     }
     this.renderer.dispose();
-    if (this.mesh.geometry) this.mesh.geometry.dispose();
-    if (this.mesh.material) this.mesh.material.dispose();
+    this.mesh.geometry?.dispose();
+    const materials = Array.isArray(this.mesh.material) ? this.mesh.material : [this.mesh.material];
+    materials.forEach((material) => material?.dispose());
   }
 }
