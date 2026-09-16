@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import RadioWidget from '../components/RadioWidget.astro';
 import { getLangFromUrl, useTranslations, languages, defaultLang, type Lang } from '../i18n/utils';
 
 interface Props {
@@ -233,5 +234,6 @@ const metaLanguageName: Record<Lang, string> = { en: 'English', es: 'Spanish' };
   </head>
   <body>
     <slot />
+    <RadioWidget />
   </body>
 </html>

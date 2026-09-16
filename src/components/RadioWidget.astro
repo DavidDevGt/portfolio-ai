@@ -1,0 +1,485 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const STREAMS = [
+  { id: 'jazz', label: 'JAZZ', url: 'https://music.kuraitachi.com/streams/jazz' },
+  { id: 'dubstep', label: 'DUBSTEP', url: 'https://music.kuraitachi.com/streams/dubstep' },
+  { id: 'cyberpunk', label: 'CYBERPUNK', url: 'https://music.kuraitachi.com/streams/cyberpunk' },
+] as const;
+
+const i18nStrings = {
+  connect: t('radio.connect'),
+  stop: t('radio.stop'),
+  connecting: t('radio.connecting'),
+  live: t('radio.live'),
+  offline: t('radio.offline'),
+  error: t('radio.error'),
+  mute: t('radio.mute.aria'),
+  unmute: t('radio.unmute.aria'),
+};
+---
+
+<div class="radio-widget" data-radio-widget>
+  <audio data-radio-audio preload="none"></audio>
+
+  <div class="radio-panel" data-radio-panel hidden>
+    <div class="radio-header">
+      <span class="radio-title">{t('radio.title')}</span>
+      <button type="button" class="radio-icon-btn" data-radio-close aria-label={t('radio.close.aria')}>
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg>
+      </button>
+    </div>
+
+    <div class="radio-status">
+      <span class="radio-status-dot" data-radio-status-dot data-state="offline"></span>
+      <span class="radio-status-text" data-radio-status-text>{t('radio.offline')}</span>
+    </div>
+
+    <div class="radio-moods" role="group" aria-label={t('radio.mood.aria')}>
+      {STREAMS.map((stream) => (
+        <button type="button" class="radio-mood-btn" data-radio-mood data-mood={stream.id} aria-pressed="false">
+          {stream.label}
+        </button>
+      ))}
+    </div>
+
+    <div class="radio-controls">
+      <button type="button" class="radio-icon-btn radio-play-btn" data-radio-play aria-label={t('radio.connect')}>
+        <svg data-icon="play" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="6,4 20,12 6,20" /></svg>
+        <svg data-icon="stop" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="display:none"><rect x="6" y="6" width="12" height="12" /></svg>
+      </button>
+
+      <button type="button" class="radio-icon-btn" data-radio-mute aria-label={t('radio.mute.aria')}>
+        <svg data-icon="unmuted" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none" />
+          <path d="M15.5 8.5a5 5 0 0 1 0 7" />
+          <path d="M18 6a8.5 8.5 0 0 1 0 12" />
+        </svg>
+        <svg data-icon="muted" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+          <path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none" />
+          <path d="M16 9l6 6M22 9l-6 6" />
+        </svg>
+      </button>
+
+      <input type="range" class="radio-volume" data-radio-volume min="0" max="1" step="0.01" value="0.7" aria-label={t('radio.volume.aria')} />
+    </div>
+  </div>
+
+  <button type="button" class="radio-toggle" data-radio-toggle aria-expanded="false" aria-label={t('radio.toggle.aria')}>
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <circle cx="12" cy="18" r="1.8" fill="currentColor" stroke="none" />
+      <path d="M8 14a6 6 0 0 1 8 0" />
+      <path d="M5 10.5a10 10 0 0 1 14 0" />
+    </svg>
+    <span class="radio-toggle-dot" data-radio-live-dot hidden></span>
+  </button>
+</div>
+
+<script is:inline define:vars={{ i18nStrings, streams: STREAMS }}>
+  window.__radioI18n = i18nStrings;
+  window.__radioStreams = streams;
+</script>
+
+<script>
+  interface RadioI18n {
+    connect: string;
+    stop: string;
+    connecting: string;
+    live: string;
+    offline: string;
+    error: string;
+    mute: string;
+    unmute: string;
+  }
+  interface StreamDef {
+    id: string;
+    label: string;
+    url: string;
+  }
+
+  const i18n = (window as unknown as { __radioI18n: RadioI18n }).__radioI18n;
+  const streams = (window as unknown as { __radioStreams: StreamDef[] }).__radioStreams;
+
+  const widget = document.querySelector<HTMLElement>('[data-radio-widget]');
+
+  if (widget && i18n && streams?.length) {
+    const toggleBtn = widget.querySelector<HTMLButtonElement>('[data-radio-toggle]')!;
+    const liveDot = widget.querySelector<HTMLElement>('[data-radio-live-dot]')!;
+    const panel = widget.querySelector<HTMLElement>('[data-radio-panel]')!;
+    const closeBtn = widget.querySelector<HTMLButtonElement>('[data-radio-close]')!;
+    const audio = widget.querySelector<HTMLAudioElement>('[data-radio-audio]')!;
+    const playBtn = widget.querySelector<HTMLButtonElement>('[data-radio-play]')!;
+    const muteBtn = widget.querySelector<HTMLButtonElement>('[data-radio-mute]')!;
+    const volumeInput = widget.querySelector<HTMLInputElement>('[data-radio-volume]')!;
+    const moodBtns = Array.from(widget.querySelectorAll<HTMLButtonElement>('[data-radio-mood]'));
+    const statusDot = widget.querySelector<HTMLElement>('[data-radio-status-dot]')!;
+    const statusText = widget.querySelector<HTMLElement>('[data-radio-status-text]')!;
+    const iconPlay = playBtn.querySelector<SVGElement>('[data-icon="play"]')!;
+    const iconStop = playBtn.querySelector<SVGElement>('[data-icon="stop"]')!;
+    const iconMuted = muteBtn.querySelector<SVGElement>('[data-icon="muted"]')!;
+    const iconUnmuted = muteBtn.querySelector<SVGElement>('[data-icon="unmuted"]')!;
+
+    const STORAGE_KEY = 'kurai-radio-prefs';
+    type Prefs = { mood: string; volume: number; muted: boolean };
+    let prefs: Prefs = { mood: streams[0].id, volume: 0.7, muted: false };
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '{}');
+      prefs = { ...prefs, ...saved };
+    } catch {
+      // ignore malformed/blocked storage
+    }
+
+    let currentMood = streams.some((s) => s.id === prefs.mood) ? prefs.mood : streams[0].id;
+    type RadioState = 'idle' | 'connecting' | 'live' | 'error';
+    let state: RadioState = 'idle';
+
+    audio.volume = Math.min(1, Math.max(0, prefs.volume));
+    audio.muted = prefs.muted;
+    volumeInput.value = String(audio.volume);
+
+    const savePrefs = () => {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ mood: currentMood, volume: audio.volume, muted: audio.muted }));
+      } catch {
+        // ignore
+      }
+    };
+
+    const setActiveMoodButton = () => {
+      moodBtns.forEach((btn) => {
+        const active = btn.dataset.mood === currentMood;
+        btn.classList.toggle('is-active', active);
+        btn.setAttribute('aria-pressed', String(active));
+      });
+    };
+
+    const setSvgHidden = (el: SVGElement, isHidden: boolean) => {
+      el.style.display = isHidden ? 'none' : '';
+    };
+
+    const updatePlayIcon = () => {
+      const active = state === 'connecting' || state === 'live';
+      setSvgHidden(iconPlay, active);
+      setSvgHidden(iconStop, !active);
+      playBtn.setAttribute('aria-label', active ? i18n.stop : i18n.connect);
+    };
+
+    const updateMuteIcon = () => {
+      const muted = audio.muted || audio.volume === 0;
+      setSvgHidden(iconMuted, !muted);
+      setSvgHidden(iconUnmuted, muted);
+      muteBtn.setAttribute('aria-label', muted ? i18n.unmute : i18n.mute);
+    };
+
+    const setState = (next: RadioState) => {
+      state = next;
+      statusDot.dataset.state = next === 'idle' ? 'offline' : next;
+      liveDot.hidden = next !== 'live';
+      statusText.textContent = { idle: i18n.offline, connecting: i18n.connecting, live: i18n.live, error: i18n.error }[next];
+      updatePlayIcon();
+    };
+
+    updateMuteIcon();
+    setActiveMoodButton();
+
+    // Reassigning src / calling load() aborts any in-flight fetch, which the browser
+    // reports through the same 'error' event as a real stream failure. There's no
+    // reliable cross-browser signal on the event itself to tell them apart for a
+    // chunked Icecast stream, so treat any error within this grace window after our
+    // own mutation as fallout from that abort rather than a genuine failure.
+    const ABORT_GRACE_MS = 400;
+    let lastMutationAt = 0;
+    const isOwnAbort = () => state === 'idle' || Date.now() - lastMutationAt < ABORT_GRACE_MS;
+
+    const connect = (moodId: string) => {
+      const stream = streams.find((s) => s.id === moodId);
+      if (!stream) return;
+      setState('connecting');
+      lastMutationAt = Date.now();
+      audio.src = stream.url;
+      // A later disconnect()/mood-swap can reject this same play() promise (pause()
+      // while play() is pending throws AbortError) — don't report that as a failure.
+      audio.play().catch(() => {
+        if (isOwnAbort()) return;
+        setState('error');
+      });
+    };
+
+    const disconnect = () => {
+      lastMutationAt = Date.now();
+      audio.pause();
+      audio.removeAttribute('src');
+      audio.load();
+      setState('idle');
+    };
+
+    playBtn.addEventListener('click', () => {
+      // "connecting" also counts as active so a click mid-buffer disconnects
+      // instead of re-triggering connect() and racing the pending load.
+      if (state === 'connecting' || state === 'live') {
+        disconnect();
+      } else {
+        connect(currentMood);
+      }
+    });
+
+    moodBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const mood = btn.dataset.mood!;
+        if (mood === currentMood) return;
+        currentMood = mood;
+        setActiveMoodButton();
+        savePrefs();
+        if (state === 'connecting' || state === 'live') connect(mood);
+      });
+    });
+
+    muteBtn.addEventListener('click', () => {
+      audio.muted = !audio.muted;
+      updateMuteIcon();
+      savePrefs();
+    });
+
+    volumeInput.addEventListener('input', () => {
+      const v = Number(volumeInput.value);
+      audio.volume = v;
+      if (v > 0 && audio.muted) audio.muted = false;
+      updateMuteIcon();
+      savePrefs();
+    });
+
+    audio.addEventListener('playing', () => setState('live'));
+
+    audio.addEventListener('waiting', () => {
+      if (state === 'live') setState('connecting');
+    });
+
+    audio.addEventListener('error', () => {
+      if (isOwnAbort()) return;
+      setState('error');
+    });
+
+    const openPanel = () => {
+      panel.hidden = false;
+      toggleBtn.setAttribute('aria-expanded', 'true');
+    };
+    const closePanel = () => {
+      panel.hidden = true;
+      toggleBtn.setAttribute('aria-expanded', 'false');
+    };
+
+    toggleBtn.addEventListener('click', () => {
+      if (panel.hidden) openPanel();
+      else closePanel();
+    });
+    closeBtn.addEventListener('click', closePanel);
+
+    document.addEventListener('click', (e) => {
+      if (!panel.hidden && !widget.contains(e.target as Node)) closePanel();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !panel.hidden) closePanel();
+    });
+
+    // Close the live connection on navigation/unload so it doesn't keep streaming in the background.
+    const cleanup = () => disconnect();
+    document.addEventListener('astro:before-swap', cleanup);
+    window.addEventListener('pagehide', cleanup);
+  }
+</script>
+
+<style>
+  .radio-widget {
+    position: fixed;
+    right: 1.25rem;
+    bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+    z-index: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.75rem;
+    font-family: var(--font-body);
+  }
+
+  .radio-toggle {
+    position: relative;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border: var(--border-medium) solid var(--color-text);
+    background: var(--color-bg);
+    color: var(--color-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .radio-toggle:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+  }
+
+  .radio-toggle-dot {
+    position: absolute;
+    top: 0.35rem;
+    right: 0.35rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 6px var(--color-accent);
+    animation: radio-pulse 1.6s ease-in-out infinite;
+  }
+
+  @keyframes radio-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.75); }
+  }
+
+  .radio-panel {
+    width: 15.5rem;
+    border: var(--border-medium) solid var(--color-text);
+    background: var(--color-bg-alt);
+    padding: 0.85rem;
+    box-shadow: 6px 6px 0 rgba(0, 255, 0, 0.15);
+  }
+
+  .radio-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.5rem;
+    border-bottom: var(--border-thin) solid var(--color-accent);
+  }
+
+  .radio-title {
+    font-family: var(--font-header);
+    font-size: 0.8rem;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    color: var(--color-text);
+  }
+
+  .radio-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border: var(--border-thin) solid transparent;
+    background: transparent;
+    color: var(--color-text);
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.15s ease;
+  }
+
+  .radio-icon-btn:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .radio-status {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+  }
+
+  .radio-status-dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--color-text-muted);
+    flex-shrink: 0;
+  }
+
+  .radio-status-dot[data-state="live"] {
+    background: var(--color-accent);
+    box-shadow: 0 0 6px var(--color-accent);
+    animation: radio-pulse 1.6s ease-in-out infinite;
+  }
+
+  .radio-status-dot[data-state="connecting"] {
+    background: var(--color-warning);
+  }
+
+  .radio-status-dot[data-state="error"] {
+    background: var(--color-error);
+  }
+
+  .radio-moods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .radio-mood-btn {
+    flex: 1 1 auto;
+    font-family: var(--font-header);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    padding: 0.4rem 0.5rem;
+    border: var(--border-thin) solid var(--color-text);
+    background: transparent;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .radio-mood-btn:hover {
+    border-color: var(--color-accent);
+    color: var(--color-text);
+  }
+
+  .radio-mood-btn.is-active {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  .radio-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .radio-play-btn {
+    border: var(--border-thin) solid var(--color-text);
+    width: 2.1rem;
+    height: 2.1rem;
+  }
+
+  .radio-play-btn:hover {
+    border-color: var(--color-accent);
+  }
+
+  .radio-volume {
+    flex: 1;
+    accent-color: var(--color-accent);
+    cursor: pointer;
+  }
+
+  @media (max-width: 480px) {
+    .radio-widget {
+      right: 1rem;
+      bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    }
+
+    .radio-panel {
+      width: calc(100vw - 2rem);
+      max-width: 15.5rem;
+    }
+  }
+</style>
