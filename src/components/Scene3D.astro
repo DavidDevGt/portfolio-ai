@@ -1,0 +1,118 @@
+---
+interface Props {
+  canvasId?: string;
+}
+
+const { canvasId = 'webgl-canvas' } = Astro.props;
+---
+
+<canvas id={canvasId} class="scene3d-canvas" aria-hidden="true"></canvas>
+<div class="scene3d-fallback" aria-hidden="true" data-scene3d-fallback></div>
+
+<style>
+  .scene3d-canvas,
+  .scene3d-fallback {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .scene3d-fallback {
+    display: none;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(0, 255, 0, 0.08), transparent 55%),
+      radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.06), transparent 55%),
+      var(--color-bg, #000);
+  }
+
+  .scene3d-fallback[data-active] {
+    display: block;
+  }
+</style>
+
+<script is:inline define:vars={{ canvasId }}>
+  window.__scene3dCanvasId = canvasId;
+</script>
+
+<script>
+  import { ThreeScene } from '../scripts/three-scene';
+
+  let scene: InstanceType<typeof ThreeScene> | null = null;
+
+  function supportsWebGL(): boolean {
+    try {
+      const testCanvas = document.createElement('canvas');
+      const gl = testCanvas.getContext('webgl2') || testCanvas.getContext('webgl');
+      return !!gl;
+    } catch {
+      return false;
+    }
+  }
+
+  function showFallback(): void {
+    const canvasId = (window as unknown as { __scene3dCanvasId: string }).__scene3dCanvasId;
+    const canvas = document.getElementById(canvasId);
+    const fallback = document.querySelector('[data-scene3d-fallback]');
+    canvas?.remove();
+    fallback?.setAttribute('data-active', '');
+  }
+
+  async function initScene(): Promise<void> {
+    if (scene) return;
+
+    if (!supportsWebGL()) {
+      showFallback();
+      return;
+    }
+
+    const canvasId = (window as unknown as { __scene3dCanvasId: string }).__scene3dCanvasId;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    try {
+      scene = new ThreeScene({
+        canvasId,
+        reducedMotion,
+        // Tune the wireframe's motion here:
+        rotationSpeedX: 0.001,   // idle spin, radians/frame — higher = faster constant spin
+        rotationSpeedY: 0.002,
+        pointerInfluence: 0.35,  // mouse tilt strength, radians — higher = more tilt toward cursor
+      });
+      await scene.init();
+    } catch (error) {
+      console.warn('[Scene3D] Failed to initialize WebGL scene:', error);
+      scene = null;
+      showFallback();
+    }
+  }
+
+  function disposeScene(): void {
+    scene?.dispose();
+    scene = null;
+  }
+
+  function scheduleInit(): void {
+    const runInit = () => {
+      if ('requestIdleCallback' in window) {
+        (window as typeof window & { requestIdleCallback: (cb: () => void) => void }).requestIdleCallback(initScene);
+      } else {
+        setTimeout(initScene, 200);
+      }
+    };
+
+    if (document.readyState === 'complete') {
+      runInit();
+    } else {
+      window.addEventListener('load', runInit, { once: true });
+    }
+  }
+
+  scheduleInit();
+
+  // Strict lifecycle cleanup: dispose on Astro view-transition swaps and on real page unload
+  // to prevent WebGL context leaks across client-side and full-page navigations.
+  document.addEventListener('astro:before-swap', disposeScene);
+  window.addEventListener('pagehide', disposeScene);
+</script>

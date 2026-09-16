@@ -14,6 +14,10 @@ export interface ThreeSceneConfig {
   rotationSpeedX?: number;
   rotationSpeedY?: number;
   maxPixelRatio?: number;
+  /** Pointer parallax strength in radians. Set to 0 to disable pointer interaction. */
+  pointerInfluence?: number;
+  /** Freezes continuous animation (base rotation + pointer lerp) for prefers-reduced-motion. Scroll and one static render still apply. */
+  reducedMotion?: boolean;
 }
 
 export class ThreeScene {
@@ -24,6 +28,12 @@ export class ThreeScene {
   private canvas!: HTMLCanvasElement;
   private animationId: number | null = null;
   private config: Required<ThreeSceneConfig>;
+  private disposed = false;
+
+  private pointerTarget = { x: 0, y: 0 };
+  private pointerCurrent = { x: 0, y: 0 };
+  private baseRotation = { x: 0, y: 0 };
+  private baseScrollRotationZ = 0;
 
   constructor(config: ThreeSceneConfig) {
     this.config = {
@@ -38,7 +48,9 @@ export class ThreeScene {
       rotationSpeedX: 0.001,
       rotationSpeedY: 0.002,
       maxPixelRatio: 1.5,
-      ...config
+      pointerInfluence: 0.35,
+      reducedMotion: false,
+      ...config,
     };
   }
 
@@ -68,14 +80,17 @@ export class ThreeScene {
 
     this.createGeometry();
     this.setupEventListeners();
-    this.startAnimation();
+
+    if (this.config.reducedMotion) {
+      // Render a single static frame; no rAF loop, no continuous motion.
+      this.renderer.render(this.scene, this.camera);
+    } else {
+      this.startAnimation();
+    }
   }
 
   private createGeometry(): void {
-    const geometry = new THREE.IcosahedronGeometry(
-      this.config.geometryRadius,
-      this.config.geometryDetail
-    );
+    const geometry = new THREE.IcosahedronGeometry(this.config.geometryRadius, this.config.geometryDetail);
     const material = new THREE.MeshBasicMaterial({
       color: this.config.materialColor,
       wireframe: true,
@@ -86,39 +101,77 @@ export class ThreeScene {
     this.scene.add(this.mesh);
   }
 
-
-
   private setupEventListeners(): void {
     const handleResize = () => {
       this.camera.aspect = window.innerWidth / window.innerHeight;
       this.camera.updateProjectionMatrix();
       this.renderer.setSize(window.innerWidth, window.innerHeight);
+      if (this.config.reducedMotion) {
+        this.renderer.render(this.scene, this.camera);
+      }
     };
 
     const handleScroll = () => {
-      const scrollPercent =
-        window.scrollY /
-        (document.documentElement.scrollHeight - window.innerHeight);
-      this.mesh.rotation.z = scrollPercent * Math.PI * 2;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+      this.baseScrollRotationZ = scrollPercent * Math.PI * 2;
+      if (this.config.reducedMotion) {
+        this.mesh.rotation.z = this.baseScrollRotationZ;
+        this.renderer.render(this.scene, this.camera);
+      }
+    };
+
+    const handlePointerMove = (event: PointerEvent) => {
+      if (this.config.reducedMotion || this.config.pointerInfluence === 0) return;
+      // Normalize to [-1, 1] range relative to viewport center.
+      this.pointerTarget.x = (event.clientX / window.innerWidth) * 2 - 1;
+      this.pointerTarget.y = (event.clientY / window.innerHeight) * 2 - 1;
+    };
+
+    const handleContextLost = (event: Event) => {
+      event.preventDefault();
+      if (this.animationId !== null) {
+        cancelAnimationFrame(this.animationId);
+        this.animationId = null;
+      }
+    };
+
+    const handleContextRestored = () => {
+      if (!this.disposed && !this.config.reducedMotion && this.animationId === null) {
+        this.startAnimation();
+      }
     };
 
     window.addEventListener('resize', handleResize);
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('pointermove', handlePointerMove, { passive: true });
+    this.canvas.addEventListener('webglcontextlost', handleContextLost, false);
+    this.canvas.addEventListener('webglcontextrestored', handleContextRestored, false);
 
-    // Store cleanup functions
     this.cleanup = () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('pointermove', handlePointerMove);
+      this.canvas.removeEventListener('webglcontextlost', handleContextLost, false);
+      this.canvas.removeEventListener('webglcontextrestored', handleContextRestored, false);
     };
   }
 
   private startAnimation(): void {
+    const lerpFactor = 0.25;
     const animate = () => {
       this.animationId = requestAnimationFrame(animate);
 
-      // Rotación base
-      this.mesh.rotation.x += this.config.rotationSpeedX;
-      this.mesh.rotation.y += this.config.rotationSpeedY;
+      this.baseRotation.x += this.config.rotationSpeedX;
+      this.baseRotation.y += this.config.rotationSpeedY;
+
+      this.pointerCurrent.x += (this.pointerTarget.x - this.pointerCurrent.x) * lerpFactor;
+      this.pointerCurrent.y += (this.pointerTarget.y - this.pointerCurrent.y) * lerpFactor;
+
+      // Set (not accumulate) — the pointer term is a bounded tilt offset, not an added spin rate.
+      this.mesh.rotation.x = this.baseRotation.x + this.pointerCurrent.y * this.config.pointerInfluence * 0.5;
+      this.mesh.rotation.y = this.baseRotation.y + this.pointerCurrent.x * this.config.pointerInfluence * 0.5;
+      this.mesh.rotation.z = this.baseScrollRotationZ;
 
       this.renderer.render(this.scene, this.camera);
     };
@@ -127,7 +180,6 @@ export class ThreeScene {
 
   public updateConfig(newConfig: Partial<ThreeSceneConfig>): void {
     Object.assign(this.config, newConfig);
-    // Apply changes if needed (e.g., update material color)
     if (newConfig.materialColor !== undefined && this.mesh.material instanceof THREE.MeshBasicMaterial) {
       this.mesh.material.color.setHex(newConfig.materialColor);
     }
@@ -136,20 +188,25 @@ export class ThreeScene {
     }
   }
 
-
-
   public cleanup: (() => void) | null = null;
 
   public dispose(): void {
-    if (this.animationId) {
+    if (this.disposed) return;
+    this.disposed = true;
+
+    if (this.animationId !== null) {
       cancelAnimationFrame(this.animationId);
+      this.animationId = null;
     }
     if (this.cleanup) {
       this.cleanup();
+      this.cleanup = null;
     }
-    this.renderer.dispose();
-    this.mesh.geometry?.dispose();
-    const materials = Array.isArray(this.mesh.material) ? this.mesh.material : [this.mesh.material];
+    this.mesh?.geometry?.dispose();
+    const materials = Array.isArray(this.mesh?.material) ? this.mesh.material : [this.mesh?.material];
     materials.forEach((material) => material?.dispose());
+    this.scene?.clear();
+    this.renderer?.dispose();
+    this.renderer?.forceContextLoss();
   }
 }

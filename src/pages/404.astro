@@ -2,9 +2,15 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+const home = translatePath('/');
 ---
 
-<Layout title="404 — Page Not Found">
+<Layout lang={lang} title={`404 — ${t('404.title')}`}>
   <Header />
 
   <main class="not-found-page">
@@ -14,14 +20,11 @@ import Footer from '../components/Footer.astro';
         <span class="code">404</span>
         <span class="bracket">]</span>
       </span>
-      <h1 class="title">Page Not Found</h1>
-      <p class="description">
-        The page you're looking for doesn't exist or has been moved.
-        Maybe it's in another dimension? ¯\_(ツ)_/¯
-      </p>
+      <h1 class="title">{t('404.title')}</h1>
+      <p class="description">{t('404.description')}</p>
       <div class="cta">
-        <a href="/" class="btn-brutal btn-primary">Go Home</a>
-        <a href="/#work" class="btn-brutal">View Projects</a>
+        <a href={home} class="btn-brutal btn-primary">{t('404.home')}</a>
+        <a href={`${home}#work`} class="btn-brutal">{t('404.projects')}</a>
       </div>
     </div>
   </main>

@@ -1,21 +1,30 @@
 ---
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+const home = translatePath('/');
+
 const navItems = [
-  { label: 'EXPERIENCE', href: '/#experience' },
-  { label: 'WORK', href: '/#work' },
-  { label: 'STACK', href: '/#stack' },
-  { label: 'CONTACT', href: '/#contact' },
+  { label: t('nav.experience'), href: `${home}#experience` },
+  { label: t('nav.work'), href: `${home}#work` },
+  { label: t('nav.stack'), href: `${home}#stack` },
+  { label: t('nav.contact'), href: `${home}#contact` },
 ];
 ---
 
 <header>
-  <nav class="nav-brutal" aria-label="Navegación principal">
+  <nav class="nav-brutal" aria-label={t('nav.aria')}>
     <div class="nav-inner">
-      <a href="/" class="logo-brutal">&lt;DV/&gt;</a>
+      <a href={home} class="logo-brutal">&lt;DV/&gt;</a>
       <div class="nav-links">
         {navItems.map((item) => (
           <a href={item.href} class="nav-link">{item.label}</a>
         ))}
       </div>
+      <LanguageSwitcher />
     </div>
   </nav>
 </header>
@@ -129,6 +138,10 @@ const navItems = [
     .logo-brutal {
       font-size: var(--text-base);
       order: 1;
+    }
+
+    .nav-inner :global(.lang-switcher) {
+      order: 2;
     }
 
     .nav-links {
