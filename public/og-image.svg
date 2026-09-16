@@ -52,7 +52,7 @@
   <text x="80" y="520" class="mono" font-size="24" fill="#00ff00">24/7 AI · $0 API Costs · 100% Self-Hosted</text>
   
   <!-- URL -->
-  <text x="80" y="580" class="mono" font-size="24" fill="#00ffff">davidwebgt.com</text>
+  <text x="80" y="580" class="mono" font-size="24" fill="#00ffff">ai.davidwebgt.com</text>
   
   <!-- Right side decoration -->
   <circle cx="1050" cy="150" r="80" fill="none" stroke="#00ff00" stroke-width="2" opacity="0.3"/>

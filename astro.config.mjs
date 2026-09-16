@@ -5,7 +5,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://davidwebgt.com',
+  site: 'https://ai.davidwebgt.com',
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'es'],

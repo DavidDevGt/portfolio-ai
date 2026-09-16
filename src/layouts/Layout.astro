@@ -16,7 +16,9 @@ const {
   description = t('site.description'),
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, 'https://davidwebgt.com');
+// Single source of truth for the production domain — set via `site` in astro.config.mjs.
+const siteURL = Astro.site ?? new URL('https://ai.davidwebgt.com');
+const canonicalURL = new URL(Astro.url.pathname, siteURL);
 
 const localeMap: Record<Lang, string> = { en: 'en_US', es: 'es_GT' };
 const ogLocale = localeMap[lang];
@@ -31,7 +33,7 @@ const personSchema = {
   "givenName": "David",
   "familyName": "Vargas",
   "jobTitle": "AI Software Engineer",
-  "url": "https://davidwebgt.com",
+  "url": siteURL.href,
   "description": description,
   "address": {
     "@type": "PostalAddress",
@@ -158,13 +160,13 @@ const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "David Vargas - Software Engineer",
-  "url": "https://davidwebgt.com",
+  "url": siteURL.href,
   "description": "Portfolio of David Vargas, Senior Software Engineer from Guatemala specializing in self-hosted ML infrastructure and real-time AI systems.",
   "inLanguage": ogLocale.replace('_', '-'),
   "author": {
     "@type": "Person",
     "name": "David Vargas",
-    "url": "https://davidwebgt.com"
+    "url": siteURL.href
   }
 };
 
@@ -185,12 +187,14 @@ const metaLanguageName: Record<Lang, string> = { en: 'English', es: 'Spanish' };
     <meta name="geo.placename" content="Guatemala" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#000000" />
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={canonicalURL} />
 
     {alternateLangs.map((altLang) => (
-      <link rel="alternate" hreflang={altLang} href={new URL(altLang === defaultLang ? basePath : `/${altLang}${basePath}`, 'https://davidwebgt.com')} />
+      <link rel="alternate" hreflang={altLang} href={new URL(altLang === defaultLang ? basePath : `/${altLang}${basePath}`, siteURL)} />
     ))}
 
     <title>{title}</title>
@@ -205,7 +209,8 @@ const metaLanguageName: Record<Lang, string> = { en: 'English', es: 'Spanish' };
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:site_name" content="David Vargas - Software Engineer" />
     <meta property="og:locale" content={ogLocale} />
-    <meta property="og:image" content="https://davidwebgt.com/og-image.svg" />
+    <meta property="og:image" content={new URL('/og-image.png', siteURL)} />
+    <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="David Vargas - Software Engineer from Guatemala specializing in self-hosted ML infrastructure" />
@@ -213,7 +218,8 @@ const metaLanguageName: Record<Lang, string> = { en: 'English', es: 'Spanish' };
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="https://davidwebgt.com/og-image.svg" />
+    <meta name="twitter:image" content={new URL('/og-image.png', siteURL)} />
+    <meta name="twitter:site" content="@davidwebgt" />
     <meta name="twitter:creator" content="@davidwebgt" />
 
     <link rel="sitemap" href="/sitemap-index.xml" />
