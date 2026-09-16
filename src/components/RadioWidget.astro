@@ -27,7 +27,23 @@ const i18nStrings = {
 
   <div class="radio-panel" data-radio-panel hidden>
     <div class="radio-header">
-      <span class="radio-title">{t('radio.title')}</span>
+      <span class="radio-title-group">
+        <span class="radio-title">{t('radio.title')}</span>
+        <a
+          class="radio-icon-btn radio-site-link"
+          href="https://music.kuraitachi.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={t('radio.site.aria')}
+          title={t('radio.site.aria')}
+        >
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+            <path d="M15 3h6v6" />
+            <path d="M10 14 21 3" />
+          </svg>
+        </a>
+      </span>
       <button type="button" class="radio-icon-btn" data-radio-close aria-label={t('radio.close.aria')}>
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg>
       </button>
@@ -38,33 +54,41 @@ const i18nStrings = {
       <span class="radio-status-text" data-radio-status-text>{t('radio.offline')}</span>
     </div>
 
-    <div class="radio-moods" role="group" aria-label={t('radio.mood.aria')}>
-      {STREAMS.map((stream) => (
-        <button type="button" class="radio-mood-btn" data-radio-mood data-mood={stream.id} aria-pressed="false">
-          {stream.label}
+    <div data-radio-normal-view>
+      <div class="radio-moods" role="group" aria-label={t('radio.mood.aria')}>
+        {STREAMS.map((stream) => (
+          <button type="button" class="radio-mood-btn" data-radio-mood data-mood={stream.id} aria-pressed="false">
+            {stream.label}
+          </button>
+        ))}
+      </div>
+
+      <div class="radio-controls">
+        <button type="button" class="radio-icon-btn radio-play-btn" data-radio-play aria-label={t('radio.connect')}>
+          <svg data-icon="play" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="6,4 20,12 6,20" /></svg>
+          <svg data-icon="stop" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="display:none"><rect x="6" y="6" width="12" height="12" /></svg>
         </button>
-      ))}
+
+        <button type="button" class="radio-icon-btn" data-radio-mute aria-label={t('radio.mute.aria')}>
+          <svg data-icon="unmuted" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none" />
+            <path d="M15.5 8.5a5 5 0 0 1 0 7" />
+            <path d="M18 6a8.5 8.5 0 0 1 0 12" />
+          </svg>
+          <svg data-icon="muted" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+            <path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none" />
+            <path d="M16 9l6 6M22 9l-6 6" />
+          </svg>
+        </button>
+
+        <input type="range" class="radio-volume" data-radio-volume min="0" max="1" step="0.01" value="0.7" aria-label={t('radio.volume.aria')} />
+      </div>
     </div>
 
-    <div class="radio-controls">
-      <button type="button" class="radio-icon-btn radio-play-btn" data-radio-play aria-label={t('radio.connect')}>
-        <svg data-icon="play" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="6,4 20,12 6,20" /></svg>
-        <svg data-icon="stop" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="display:none"><rect x="6" y="6" width="12" height="12" /></svg>
-      </button>
-
-      <button type="button" class="radio-icon-btn" data-radio-mute aria-label={t('radio.mute.aria')}>
-        <svg data-icon="unmuted" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none" />
-          <path d="M15.5 8.5a5 5 0 0 1 0 7" />
-          <path d="M18 6a8.5 8.5 0 0 1 0 12" />
-        </svg>
-        <svg data-icon="muted" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none">
-          <path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none" />
-          <path d="M16 9l6 6M22 9l-6 6" />
-        </svg>
-      </button>
-
-      <input type="range" class="radio-volume" data-radio-volume min="0" max="1" step="0.01" value="0.7" aria-label={t('radio.volume.aria')} />
+    <div class="radio-error-view" data-radio-error-view hidden>
+      <div class="radio-error-title">{t('radio.error.title')}</div>
+      <div class="radio-error-joke">{t('radio.error.joke')}</div>
+      <button type="button" class="radio-retry-btn" data-radio-retry>{t('radio.error.retry')}</button>
     </div>
   </div>
 
@@ -117,6 +141,9 @@ const i18nStrings = {
     const moodBtns = Array.from(widget.querySelectorAll<HTMLButtonElement>('[data-radio-mood]'));
     const statusDot = widget.querySelector<HTMLElement>('[data-radio-status-dot]')!;
     const statusText = widget.querySelector<HTMLElement>('[data-radio-status-text]')!;
+    const normalView = widget.querySelector<HTMLElement>('[data-radio-normal-view]')!;
+    const errorView = widget.querySelector<HTMLElement>('[data-radio-error-view]')!;
+    const retryBtn = widget.querySelector<HTMLButtonElement>('[data-radio-retry]')!;
     const iconPlay = playBtn.querySelector<SVGElement>('[data-icon="play"]')!;
     const iconStop = playBtn.querySelector<SVGElement>('[data-icon="stop"]')!;
     const iconMuted = muteBtn.querySelector<SVGElement>('[data-icon="muted"]')!;
@@ -179,6 +206,8 @@ const i18nStrings = {
       statusDot.dataset.state = next === 'idle' ? 'offline' : next;
       liveDot.hidden = next !== 'live';
       statusText.textContent = { idle: i18n.offline, connecting: i18n.connecting, live: i18n.live, error: i18n.error }[next];
+      errorView.hidden = next !== 'error';
+      normalView.hidden = next === 'error';
       updatePlayIcon();
     };
 
@@ -215,6 +244,8 @@ const i18nStrings = {
       audio.load();
       setState('idle');
     };
+
+    retryBtn.addEventListener('click', () => connect(currentMood));
 
     playBtn.addEventListener('click', () => {
       // "connecting" also counts as active so a click mid-buffer disconnects
@@ -358,12 +389,30 @@ const i18nStrings = {
     border-bottom: var(--border-thin) solid var(--color-accent);
   }
 
+  .radio-title-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
   .radio-title {
     font-family: var(--font-header);
     font-size: 0.8rem;
     font-weight: 900;
     letter-spacing: 0.05em;
     color: var(--color-text);
+  }
+
+  .radio-icon-btn.radio-site-link {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: none;
+    color: var(--color-text-muted);
+  }
+
+  .radio-icon-btn.radio-site-link:hover {
+    border: none;
+    color: var(--color-accent);
   }
 
   .radio-icon-btn {
@@ -469,6 +518,46 @@ const i18nStrings = {
     flex: 1;
     accent-color: var(--color-accent);
     cursor: pointer;
+  }
+
+  .radio-error-view {
+    text-align: center;
+    padding: 0.35rem 0 0.15rem;
+  }
+
+  .radio-error-title {
+    font-family: var(--font-header);
+    font-size: 0.85rem;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    color: var(--color-error);
+    text-shadow: 2px 0 var(--color-accent-2), -2px 0 var(--color-accent-3);
+    margin-bottom: 0.5rem;
+  }
+
+  .radio-error-joke {
+    font-size: 0.7rem;
+    line-height: 1.4;
+    color: var(--color-text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .radio-retry-btn {
+    font-family: var(--font-header);
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    padding: 0.4rem 1rem;
+    border: var(--border-thin) solid var(--color-error);
+    background: transparent;
+    color: var(--color-error);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .radio-retry-btn:hover {
+    background: var(--color-error);
+    color: var(--color-bg);
   }
 
   @media (max-width: 480px) {
